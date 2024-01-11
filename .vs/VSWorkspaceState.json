@@ -10,7 +10,10 @@
     "\\web\\ChatAppWeb",
     "\\web\\ChatAppWeb\\Pages"
   ],
+<<<<<<< HEAD
   "SelectedNode": "\\web\\web.sln",
 >>>>>>> 2de888c62ae4f23763eb70ee4442f1e00e34ab0b
+=======
+>>>>>>> 38282fa626de73fea9896a1b56e0a8daa73d7b56
   "PreviewInSolutionExplorer": false
 }
