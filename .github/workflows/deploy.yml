@@ -12,7 +12,14 @@ jobs:
         with:
           dotnet-version: 8.0.x
           include-prerelease: true
-     
+
+      - name: redeploy application
+        run: |
+            cd web
+            docker compose pull
+            docker compose build --no-cache 
+            docker compose down
+            docker compose up -d
       
       - name: Format
         run: dotnet format --verify-no-changes --verbosity diagnostic
