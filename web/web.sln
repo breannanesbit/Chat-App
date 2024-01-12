@@ -5,7 +5,10 @@ VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatAppWeb", "ChatAppWeb\ChatAppWeb.csproj", "{F4D44E30-E865-4700-BA36-A6566A2B3718}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatUnitTests", "ChatUnitTests\ChatUnitTests.csproj", "{11E04D3A-B41A-4D3D-8610-B59EF31EFD0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatUnitTests", "ChatUnitTests\ChatUnitTests.csproj", "{11E04D3A-B41A-4D3D-8610-B59EF31EFD0D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F4D44E30-E865-4700-BA36-A6566A2B3718} = {F4D44E30-E865-4700-BA36-A6566A2B3718}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

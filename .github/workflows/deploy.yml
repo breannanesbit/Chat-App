@@ -27,4 +27,10 @@ jobs:
           cd web
           dotnet format 
 
+      - name: Format
+        run: |
+          cd web/ChatUnitTests
+          dotnet test
+  
+
 
