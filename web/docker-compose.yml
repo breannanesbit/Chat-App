@@ -6,22 +6,22 @@ services:
     mem_limit: 512M
 
  
-  swag:
-    image: lscr.io/linuxserver/swag
-    container_name: stratego
-    restart: unless-stopped
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Denver
-      - URL=stratego2023.duckdns.org
-      - VALIDATION=duckdns
-      - DUCKDNSTOKEN=${DUCKDNSTOKEN}
-      - STAGING=false
-    volumes:
-      - /home/stratego/data/swag:/config
-      - ./swag-default.conf:/config/nginx/site-confs/default.conf # new part
-    ports:
-    - 0.0.0.0:2002:443 # note using port 443
+  # swag:
+  #   image: lscr.io/linuxserver/swag
+  #   container_name: stratego
+  #   restart: unless-stopped
+  #   cap_add:
+  #     - NET_ADMIN
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=America/Denver
+  #     - URL=stratego2023.duckdns.org
+  #     - VALIDATION=duckdns
+  #     - DUCKDNSTOKEN=${DUCKDNSTOKEN}
+  #     - STAGING=false
+  #   volumes:
+  #     - /home/stratego/data/swag:/config
+  #     - ./swag-default.conf:/config/nginx/site-confs/default.conf # new part
+  #   ports:
+  #   - 0.0.0.0:2002:443 # note using port 443
