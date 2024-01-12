@@ -1,5 +1,5 @@
 # Stage 1: Build the ChatAppWeb Blazor WebAssembly application
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 COPY ChatAppWeb/*.csproj ./
