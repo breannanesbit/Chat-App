@@ -1,17 +1,22 @@
-FROM node:20 as build 
+# Stage 1: Build the ChatAppWeb Blazor WebAssembly application
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+WORKDIR /src
 
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . . 
-RUN npm run build
-RUN ls 
+COPY ChatAppWeb/*.csproj ./
+RUN dotnet restore
+
+COPY ChatAppWeb/. ./
+RUN dotnet publish -c Release -o /app
+
+# Stage 2: Create the runtime image
+FROM nginx:alpine AS runtime
+WORKDIR /usr/share/nginx/html
+
+COPY --from=build /app/wwwroot .
 
 
-FROM nginx:alpine
-RUN rm -rf /usr/share/nginx/html/*
-COPY --from=build /app/build /usr/share/nginx/html
-COPY client-default.conf /etc/nginx/conf.d/default.conf
 
+# Expose the default port for Nginx
 EXPOSE 80
+
 CMD ["nginx", "-g", "daemon off;"]
