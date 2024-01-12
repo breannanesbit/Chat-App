@@ -1,7 +1,8 @@
 version: "3"
 services:
   client:
-    build: .
+    build:
+      context: ./web  
     restart: unless-stopped
     mem_limit: 512M
 
