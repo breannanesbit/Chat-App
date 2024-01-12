@@ -23,6 +23,8 @@ jobs:
             docker compose up -d
       
       - name: Format
-        run: dotnet format --verify-no-changes --verbosity diagnostic
+        run: |
+          cd web
+          dotnet format --verify-no-changes --verbosity diagnostic
 
 
