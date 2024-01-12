@@ -13,8 +13,6 @@ jobs:
           dotnet-version: 8.0.x
           include-prerelease: true
 
-      - name: Set Up Docker
-        uses: actions/setup-docker@v2
 
       - name: redeploy application
         run: |
