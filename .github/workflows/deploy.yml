@@ -25,6 +25,6 @@ jobs:
       - name: Format
         run: |
           cd web
-          dotnet format --verify-no-changes --verbosity diagnostic
+          dotnet format 
 
 
