@@ -2256,23 +2256,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\bobby\\.nuget\\packages\\": {},
+    "C:\\Users\\brebr\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\Users\\bobby\\git repos\\chatapp2.0\\web\\ChatUnitTests\\ChatUnitTests.csproj",
+      "projectUniqueName": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatUnitTests\\ChatUnitTests.csproj",
       "projectName": "ChatUnitTests",
-      "projectPath": "F:\\Users\\bobby\\git repos\\chatapp2.0\\web\\ChatUnitTests\\ChatUnitTests.csproj",
-      "packagesPath": "C:\\Users\\bobby\\.nuget\\packages\\",
-      "outputPath": "F:\\Users\\bobby\\git repos\\chatapp2.0\\web\\ChatUnitTests\\obj\\",
+      "projectPath": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatUnitTests\\ChatUnitTests.csproj",
+      "packagesPath": "C:\\Users\\brebr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatUnitTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\bobby\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\brebr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2288,8 +2288,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "F:\\Users\\bobby\\git repos\\chatapp2.0\\web\\ChatAppWeb\\ChatAppWeb.csproj": {
-              "projectPath": "F:\\Users\\bobby\\git repos\\chatapp2.0\\web\\ChatAppWeb\\ChatAppWeb.csproj"
+            "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\ChatAppWeb.csproj": {
+              "projectPath": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\ChatAppWeb.csproj"
             }
           }
         }
@@ -2341,7 +2341,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
