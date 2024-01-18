@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Users\\bobby\\git repos\\chat4\\web\\Shared\\Shared.csproj": {}
+    "C:\\Users\\brebr\\distributed\\ChatApp\\web\\Shared\\Shared.csproj": {}
   },
   "projects": {
-    "F:\\Users\\bobby\\git repos\\chat4\\web\\Shared\\Shared.csproj": {
+    "C:\\Users\\brebr\\distributed\\ChatApp\\web\\Shared\\Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Users\\bobby\\git repos\\chat4\\web\\Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\Shared\\Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "F:\\Users\\bobby\\git repos\\chat4\\web\\Shared\\Shared.csproj",
-        "packagesPath": "C:\\Users\\bobby\\.nuget\\packages\\",
-        "outputPath": "F:\\Users\\bobby\\git repos\\chat4\\web\\Shared\\obj\\",
+        "projectPath": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\Shared\\Shared.csproj",
+        "packagesPath": "C:\\Users\\brebr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\bobby\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\brebr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -72,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,0 +1,7 @@
+C:\Users\brebr\distributed\ChatApp\web\ChatIntegrationTests\bin\Debug\net8.0\CoverletSourceRootsMapping_ChatIntegrationTests
+C:\Users\brebr\distributed\ChatApp\web\ChatIntegrationTests\obj\Debug\net8.0\ChatIntegrationTests.csproj.AssemblyReference.cache
+C:\Users\brebr\distributed\ChatApp\web\ChatIntegrationTests\obj\Debug\net8.0\ChatIntegrationTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\brebr\distributed\ChatApp\web\ChatIntegrationTests\obj\Debug\net8.0\ChatIntegrationTests.AssemblyInfoInputs.cache
+C:\Users\brebr\distributed\ChatApp\web\ChatIntegrationTests\obj\Debug\net8.0\ChatIntegrationTests.AssemblyInfo.cs
+C:\Users\brebr\distributed\ChatApp\web\ChatIntegrationTests\obj\Debug\net8.0\ChatIntegrationTests.csproj.CoreCompileInputs.cache
+C:\Users\brebr\distributed\ChatApp\web\ChatIntegrationTests\obj\Debug\net8.0\ChatIntegrationTests.sourcelink.json
