@@ -12,12 +12,9 @@ public class ChatBox
         this.service = service;
     }
 
-    public async Task SendMessageAsync()
+    public async Task SendMessageAsync(Message newMessage)
     {
-        NewMessage.Timestamp = DateTime.Now;
-        await service.SendMessage(NewMessage);
-
-
+        await service.SendMessage(newMessage);
     }
 
     public async Task<List<Message>> GetMessagesAsync()
@@ -25,21 +22,19 @@ public class ChatBox
         return await service.GetMessages();
     }
 
-    public String Time { get; set; }
-    public String User { get; set; }
-    public String Message { get; set; }
+    //public String Time { get; set; }
+    //public String User { get; set; }
+    //public String Message { get; set; }
 
-    public static List<ChatBox> Messages { get; set; } = new List<ChatBox>();
-    public static Message NewMessage { get; set; } = new Message();
 
-    static ChatBox()
-    {
-        //Messages = new List<ChatBox>
-        //{
-        //        new ChatBox{Time = "1/11/2024 1:33:55 PM", User= "Tom", Message= "I have returned!"},
-        //        new ChatBox{Time = "1/11/2024 1:34:55 PM", User="Riddle", Message="About Time!"},
-        //};
-    }
+    //static ChatBox()
+    //{
+    //    //Messages = new List<ChatBox>
+    //    //{
+    //    //        new ChatBox{Time = "1/11/2024 1:33:55 PM", User= "Tom", Message= "I have returned!"},
+    //    //        new ChatBox{Time = "1/11/2024 1:34:55 PM", User="Riddle", Message="About Time!"},
+    //    //};
+    //}
 
 
 

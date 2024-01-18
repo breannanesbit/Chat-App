@@ -10,7 +10,7 @@
         <h3 class="m-0">Chat Room</h3>
     </div>
     <div class="h-100 border m-0 p-2 rounded-3 text-center row flex-grow-1 overflow-auto">
-        @if (ChatBox.Messages != null)
+        @if (ChatBoxMessages != null)
         {
             <div class="h-100 flex-column d-flex justify-content-start">
                 @foreach (var message in ChatBoxMessages)
@@ -56,8 +56,8 @@
 </div>
 
 @code {
-    private Message NewMessage;
-    private List<Message> ChatBoxMessages;
+    private Message NewMessage = new();
+    private List<Message> ChatBoxMessages = new();
     private ChatBox chatBox;
 
     protected override async Task OnInitializedAsync()
@@ -78,8 +78,10 @@
 
     private async Task SendMessage()
     {
+        NewMessage.Timestamp = DateTime.Now;
+
         // Use the ChatBox class to send a message
-        await chatBox.SendMessageAsync();
+        await chatBox.SendMessageAsync(NewMessage);
 
         // Reload messages after sending a new message
         await LoadMessages();
