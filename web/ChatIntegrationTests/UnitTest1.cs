@@ -1,6 +1,5 @@
 using ChatAppAPI.Controllers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using Shared;
 
 namespace ChatIntegrationTests;
@@ -17,8 +16,8 @@ public class Tests
             .UseInMemoryDatabase(databaseName: "Test_Db")
             .Options;
 
-        _context = new MessagesController(options);
-        api = new MessagesController(options);
+        _context = new MessageContext(options);
+        api = new MessagesController(_context);
     }
 
     [TearDown]
