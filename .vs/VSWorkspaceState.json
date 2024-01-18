@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\web",
+    "\\web\\ChatAppAPI",
+    "\\web\\ChatAppWeb"
   ],
-  "SelectedNode": "\\F:\\Users\\bobby\\git repos\\chatapp2.1",
   "PreviewInSolutionExplorer": false
 }
