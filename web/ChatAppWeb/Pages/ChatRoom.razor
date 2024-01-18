@@ -56,8 +56,8 @@
 </div>
 
 @code {
-    private Message NewMessage = new();
-    private List<Message> ChatBoxMessages = new();
+    private Message NewMessage = new Message();
+    private List<Message> ChatBoxMessages = new List<Message>();
     private ChatBox chatBox;
 
     protected override async Task OnInitializedAsync()
@@ -85,6 +85,7 @@
 
         // Reload messages after sending a new message
         await LoadMessages();
+        NewMessage = new Message();
     }
 
 
