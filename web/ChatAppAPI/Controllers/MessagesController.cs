@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 
 
 namespace ChatAppAPI.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("/chatRoom")]
-    public class MessagesController : Controller
+    public class MessagesController : ControllerBase
     {
         private readonly MessageContext _context;
 

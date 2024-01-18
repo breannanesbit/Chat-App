@@ -11,6 +11,20 @@ public class ChatBox
     {
         this.service = service;
     }
+
+    public async Task SendMessageAsync()
+    {
+        NewMessage.Timestamp = DateTime.Now;
+        await service.SendMessage(NewMessage);
+
+
+    }
+
+    public async Task<List<Message>> GetMessagesAsync()
+    {
+        return await service.GetMessages();
+    }
+
     public String Time { get; set; }
     public String User { get; set; }
     public String Message { get; set; }
@@ -28,16 +42,5 @@ public class ChatBox
     }
 
 
-    public async Task SendMessageAsync()
-    {
-        NewMessage.Timestamp = DateTime.Now;
-        await service.SendMessage(NewMessage);
 
-
-    }
-
-    public async Task<List<Message>> GetMessagesAsync()
-    {
-        return await service.GetMessages();
-    }
 }

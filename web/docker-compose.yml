@@ -8,10 +8,11 @@ services:
     mem_limit: 512M
 
   api: 
-    image: ChatAppAPI
+    image: chatAppAPI
     build:
         context: .
         dockerfile: ./ChatAppAPI/Dockerfile
+    restart: unless-stopped
     ports: 
         - 5000:80
 

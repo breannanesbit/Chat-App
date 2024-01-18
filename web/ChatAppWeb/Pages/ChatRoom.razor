@@ -1,5 +1,8 @@
 ﻿@page "/chatRoom"
+@using ChatAppWeb.Services
 @using ChatAppWeb.classes
+@using Shared
+@inject MessageService service;
 <PageTitle>Chat Room</PageTitle>
 
 <div class="vh-100 pb-5 d-flex flex-column overflow-hidden container-fluid">
@@ -10,12 +13,12 @@
         @if (ChatBox.Messages != null)
         {
             <div class="h-100 flex-column d-flex justify-content-start">
-                @foreach(var message in ChatBox.GetMessages())
+                @foreach (var message in ChatBoxMessages)
                 {
                     <div class="border border-dark rounded-3 p-2 mb-2 row bg-light">
-                        <h5 class="d-flex justify-content-start">@message.User</h5>
-                        <p class="m-0 text-start">@message.Message</p>
-                        <p class="d-flex justify-content-end m-0">@message.Time</p>
+                        <h5 class="d-flex justify-content-start">@message.Sender</h5>
+                        <p class="m-0 text-start">@message.MessageText</p>
+                        <p class="d-flex justify-content-end m-0">@message.Timestamp</p>
                     </div>
                 }
             </div>
@@ -30,7 +33,7 @@
                         Name:
                     </lavel>
                     <div class="col-9">
-                        <input class="form-control m-0 p-1" @bind="ChatBox.NewMessage!.User" placeholder="Tom Riddle"/>
+                        <input class="form-control m-0 p-1" @bind="NewMessage!.Sender" placeholder="Tom Riddle"/>
                     </div>
                 </div>
                 <div class="form-group row mt-1">
@@ -38,7 +41,7 @@
                         Message:
                     </label>
                     <div class="col-9 align-content-end">
-                        <input class="form-control m-0 p-1" @bind="ChatBox.NewMessage!.Message" placeholder="Hello!"/>
+                        <input class="form-control m-0 p-1" @bind="NewMessage!.MessageText" placeholder="Hello!"/>
                     </div>
                 </div>
             </div>
@@ -53,10 +56,34 @@
 </div>
 
 @code {
+    private Message NewMessage;
+    private List<Message> ChatBoxMessages;
+    private ChatBox chatBox;
 
-    private void SendMessage()
+    protected override async Task OnInitializedAsync()
     {
-        ChatBox.SendMessage();
+        // Initialize the ChatBox class by injecting the MessageService
+        chatBox = new ChatBox(service); // Replace with actual dependency injection
+
+        // Load initial messages
+        await LoadMessages();
     }
+
+    private async Task LoadMessages()
+    {
+        // Use the ChatBox class to get messages
+        ChatBoxMessages = await chatBox.GetMessagesAsync();
+
+    }
+
+    private async Task SendMessage()
+    {
+        // Use the ChatBox class to send a message
+        await chatBox.SendMessageAsync();
+
+        // Reload messages after sending a new message
+        await LoadMessages();
+    }
+
 
 }
