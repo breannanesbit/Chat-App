@@ -1,7 +1,14 @@
 # Stage 1: Build the ChatAppWeb Blazor WebAssembly application
 # Stage 1: Build the application
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+WORKDIR /app
+COPY . .
+
+RUN dotnet publish -c Release -o out
+
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+
+WORKDIR /app
 
 # Copy the project files and restore dependencies
 COPY ["ChatAppWeb/ChatAppWeb.csproj", "ChatAppWeb/"]
@@ -13,14 +20,12 @@ COPY ChatAppWeb/. ./ChatAppWeb/
 COPY Shared/. ./Shared/
 RUN dotnet publish -c Release -o /app
 
-# Stage 2: Create the runtime image
-FROM nginx:alpine AS runtime
-WORKDIR /usr/share/nginx/html
 
-# Copy the published output from the build stage
-COPY --from=build /app/wwwroot .
+# Copy the published output from the build image
+COPY --from=build /app/out .
 
-# Expose the default port for Nginx
+# Expose the port your application will run on
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# Set the entry point for the application
+ENTRYPOINT ["dotnet", "ChatAppWeb.dll"]
