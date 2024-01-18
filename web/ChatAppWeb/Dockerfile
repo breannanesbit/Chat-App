@@ -1,5 +1,5 @@
 # Use the official .NET SDK as a build image
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ COPY . .
 RUN dotnet publish -c Release -o out
 
 # Use a lightweight runtime image
-FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 
 WORKDIR /app
 
