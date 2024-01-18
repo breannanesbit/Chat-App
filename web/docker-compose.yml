@@ -3,7 +3,7 @@ services:
   client:
     build:
       context: .
-      dockerfile: /ChatAppWeb/Dockerfile
+      dockerfile: ./ChatAppWeb/Dockerfile
     restart: unless-stopped
     mem_limit: 512M
 
