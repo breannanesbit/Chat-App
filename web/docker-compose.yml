@@ -20,14 +20,15 @@ services:
     image: postgres:latest
     container_name: my_postgres
     environment:
-      POSTGRES_USER: your_username
-      POSTGRES_PASSWORD: your_password
-      POSTGRES_DB: your_database_name
+        POSTGRES_USER: your_username
+        POSTGRES_PASSWORD: your_password
+        POSTGRES_DB: your_database_name
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
 
   grafana:
     image: grafana/grafana:latest
@@ -48,6 +49,10 @@ services:
     command: ["--config", "/etc/otel-collector-config.yaml"]
 
  
+volumes:
+  postgres_data:
+
+
   # swag:
   #   image: lscr.io/linuxserver/swag
   #   container_name: stratego
