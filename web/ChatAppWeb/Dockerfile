@@ -4,9 +4,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy the project files and restore dependencies
-COPY ChatAppWeb/*.csproj ./
-COPY Shared/*.csproj ./Shared/
-RUN dotnet restore
+COPY ["ChatAppWeb/ChatAppWeb.csproj", "ChatAppWeb/"]
+COPY ["Shared/Shared.csproj", "Shared/"]
+RUN dotnet restore "./ChatAppWeb/ChatAppWeb.csproj"
 
 # Copy the source code and build the application
 COPY ChatAppWeb/. ./ChatAppWeb/

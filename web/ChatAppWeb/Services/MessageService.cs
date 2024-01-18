@@ -15,7 +15,7 @@ namespace ChatAppWeb.Services
 
         public async Task<bool> SendMessage(Message message)
         {
-            var response = await client.PostAsJsonAsync("/api/message/newMessage", message);
+            var response = await client.PostAsJsonAsync("/api/messages/newMessage", message);
             if (response.IsSuccessStatusCode)
             {
                 return true;
@@ -25,7 +25,7 @@ namespace ChatAppWeb.Services
 
         public async Task<List<Message>> GetMessages()
         {
-            var response = await client.GetFromJsonAsync<List<Message>>("/api/message/AllMessage");
+            var response = await client.GetFromJsonAsync<List<Message>>("/api/messages/AllMessage");
             if (response != null)
             {
                 return response;
