@@ -1,33 +1,43 @@
-﻿namespace ChatAppWeb.classes;
+﻿using ChatAppWeb.Services;
+using Shared;
+
+namespace ChatAppWeb.classes;
 
 public class ChatBox
 {
+    private readonly MessageService service;
+
+    public ChatBox(MessageService service)
+    {
+        this.service = service;
+    }
     public String Time { get; set; }
     public String User { get; set; }
     public String Message { get; set; }
 
     public static List<ChatBox> Messages { get; set; } = new List<ChatBox>();
-    public  static ChatBox NewMessage { get; set; } = new ChatBox();
+    public static Message NewMessage { get; set; } = new Message();
 
     static ChatBox()
     {
-        Messages = new List<ChatBox>
-        {
-                new ChatBox{Time = "1/11/2024 1:33:55 PM", User= "Tom", Message= "I have returned!"},
-                new ChatBox{Time = "1/11/2024 1:34:55 PM", User="Riddle", Message="About Time!"},
-        };
+        //Messages = new List<ChatBox>
+        //{
+        //        new ChatBox{Time = "1/11/2024 1:33:55 PM", User= "Tom", Message= "I have returned!"},
+        //        new ChatBox{Time = "1/11/2024 1:34:55 PM", User="Riddle", Message="About Time!"},
+        //};
     }
 
 
-    public static void SendMessage()
+    public async Task SendMessageAsync()
     {
-        NewMessage.Time = DateTime.Now.ToString();
-        Messages.Add(NewMessage);
-        NewMessage = new ChatBox();
+        NewMessage.Timestamp = DateTime.Now;
+        await service.SendMessage(NewMessage);
+
+
     }
 
-    public static ChatBox[] GetMessages()
+    public async Task<List<Message>> GetMessagesAsync()
     {
-        return Messages.ToArray();
+        return await service.GetMessages();
     }
 }

@@ -7,6 +7,27 @@ services:
     restart: unless-stopped
     mem_limit: 512M
 
+  api: 
+    image: ChatAppAPI
+    build:
+        context: .
+        dockerfile: ./ChatAppAPI/Dockerfile
+    ports: 
+        - 5000:80
+
+
+  postgres:
+    image: postgres:latest
+    container_name: my_postgres
+    environment:
+      POSTGRES_USER: your_username
+      POSTGRES_PASSWORD: your_password
+      POSTGRES_DB: your_database_name
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
  
   # swag:
   #   image: lscr.io/linuxserver/swag
