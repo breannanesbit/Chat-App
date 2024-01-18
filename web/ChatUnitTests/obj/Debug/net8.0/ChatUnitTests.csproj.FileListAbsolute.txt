@@ -1,0 +1,10 @@
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\bin\Debug\net8.0\CoverletSourceRootsMapping_ChatUnitTests
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\obj\Debug\net8.0\ChatUnitTests.csproj.AssemblyReference.cache
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\obj\Debug\net8.0\ChatUnitTests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\obj\Debug\net8.0\ChatUnitTests.AssemblyInfoInputs.cache
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\obj\Debug\net8.0\ChatUnitTests.AssemblyInfo.cs
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\obj\Debug\net8.0\ChatUnitTests.csproj.CoreCompileInputs.cache
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\obj\Debug\net8.0\ChatUnitTests.sourcelink.json
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\obj\Debug\net8.0\ChatUnitTests.dll
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\obj\Debug\net8.0\refint\ChatUnitTests.dll
+C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\obj\Debug\net8.0\ChatUnitTests.pdb

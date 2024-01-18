@@ -15,7 +15,7 @@ services:
     ports: 
         - 5000:80
 
-
+  
   postgres:
     image: postgres:latest
     container_name: my_postgres
