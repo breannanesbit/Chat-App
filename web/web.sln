@@ -21,9 +21,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{FC2B8801-8F37-4765-8926-F58ED78A63ED}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatIntegrationTests", "ChatIntegrationTests\ChatIntegrationTests.csproj", "{D7E0132A-9D46-4D0A-BAE9-DADE80CA8EE1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F404D577-8F7B-4022-8B8D-D7298C303490} = {F404D577-8F7B-4022-8B8D-D7298C303490}
-		{FC2B8801-8F37-4765-8926-F58ED78A63ED} = {FC2B8801-8F37-4765-8926-F58ED78A63ED}
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CAE32879-5DE2-4638-A6D0-406F6B5FA833}"
+	ProjectSection(SolutionItems) = preProject
+		otel-collector-config.yaml = otel-collector-config.yaml
 	EndProjectSection
 EndProject
 Global
