@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ChatAppWeb.classes;
+﻿using ChatAppWeb.classes;
 
 namespace ChatUnitTests;
 [TestFixture]
@@ -13,11 +8,11 @@ public class NewMessageTest
     public void Add_Message()
     {
         int messageCount = ChatBox.Messages.Count;
-        ChatBox.NewMessage = new ChatBox { Time = "1/11/2024 1:34:55 PM", User = "Riddle", Message = "About Time!" };
+        //ChatBox.NewMessage = new Shared.Message { Timestamp = 1/11/2024 1:34:55, Sender = "Riddle", MessageText = "About Time!" };
 
-        ChatBox.SendMessage();
+        //ChatBox.;
 
-        Assert.Greater(ChatBox.Messages.Count,messageCount);
-        Assert.AreNotEqual(ChatBox.Messages.Count,messageCount);
+        Assert.Greater(ChatBox.Messages.Count, messageCount);
+        Assert.AreNotEqual(ChatBox.Messages.Count, messageCount);
     }
 }
