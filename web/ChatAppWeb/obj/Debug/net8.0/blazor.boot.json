@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "ChatAppWeb",
   "resources": {
-    "hash": "sha256-y+p7jNPMBAaoMyJTcr36TIM0jftAgRIAKhDPmjcW1yw=",
+    "hash": "sha256-QEl+AGaXpJKikZ9gxxPjaZz0uGwB3CPeb0W1WtaYi/s=",
     "jsModuleNative": {
       "dotnet.native.8.0.0.1mkeirx5qq.js": "sha256-LjLDIz9+J7uuiwMlQ4HbNx2BnSpphOtO2MwkoI28vdI="
     },
@@ -216,11 +216,11 @@
       "netstandard.wasm": "sha256-A0h86SDieTMoU/wU2JTszWCsUmMuguDcbap0b0BzsmI=",
       "System.Private.CoreLib.wasm": "sha256-/0DNIm/T0C07X7Tuz5uR8JvVCoAfEE2MnfPUSjyS9xc=",
       "Shared.wasm": "sha256-pBp9MEG4GmSHSSmLuhP9Q0qqiMViZp3JaAXr5Dhrnvo=",
-      "ChatAppWeb.wasm": "sha256-HKGTEnJMbF+5OAgArfhSisKKweM4qKVBFkcsBncGtKU="
+      "ChatAppWeb.wasm": "sha256-G2ElNqGvjyvV9xKZ2dQ6HZBmdG/HPxP7IqToyHGc4XQ="
     },
     "pdb": {
       "Shared.pdb": "sha256-FP0p7myinO2UaAs5FDk59/rCiGnfkp2q/0PKWdnZFAg=",
-      "ChatAppWeb.pdb": "sha256-7LdWAdySjdQ2dhRdvKisZ5selJHXHrZaXYa2vAiMul0="
+      "ChatAppWeb.pdb": "sha256-lrLFSTL6zRzPxApix7hQ1JJhobXOs7oHP6z3fFlWrlM="
     }
   },
   "cacheBootResources": true,

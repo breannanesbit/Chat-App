@@ -105,3 +105,10 @@ C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\obj\Debug\net8.0\refint\ChatAp
 C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\obj\Debug\net8.0\ChatAppAPI.pdb
 C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\obj\Debug\net8.0\ChatAppAPI.genruntimeconfig.cache
 C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\obj\Debug\net8.0\ref\ChatAppAPI.dll
+C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\bin\Debug\net8.0\OpenTelemetry.dll
+C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\bin\Debug\net8.0\OpenTelemetry.Api.dll
+C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\bin\Debug\net8.0\OpenTelemetry.Api.ProviderBuilderExtensions.dll
+C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\bin\Debug\net8.0\OpenTelemetry.Exporter.Console.dll
+C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\bin\Debug\net8.0\OpenTelemetry.Extensions.Hosting.dll
+C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\bin\Debug\net8.0\OpenTelemetry.Instrumentation.AspNetCore.dll
+C:\Users\brebr\distributed\ChatApp\web\ChatAppAPI\bin\Debug\net8.0\OpenTelemetry.Instrumentation.Runtime.dll
