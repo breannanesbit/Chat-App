@@ -1,5 +1,7 @@
 using ChatAppAPI.Controllers;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 using Shared;
 
 namespace ChatIntegrationTests;
@@ -13,12 +15,13 @@ public class Tests
     [SetUp]
     public void Setup()
     {
+        var logger = new Mock<ILogger<MessagesController>>().Object; // Using a mock logger
         var options = new DbContextOptionsBuilder<MessageContext>()
             .UseInMemoryDatabase(databaseName: "Test_Db")
             .Options;
 
         _context = new MessageContext(options);
-        api = new MessagesController(_context);
+        api = new MessagesController(logger, _context);
     }
 
     [TearDown]
