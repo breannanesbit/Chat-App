@@ -473,20 +473,24 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "Microsoft.Extensions.Configuration/3.1.0": {
+      "Microsoft.Extensions.Configuration/8.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.0"
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Primitives": "8.0.0"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
         }
       },
       "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
@@ -508,20 +512,23 @@
           "buildTransitive/net6.0/_._": {}
         }
       },
-      "Microsoft.Extensions.Configuration.Binder/3.1.0": {
+      "Microsoft.Extensions.Configuration.Binder/8.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Configuration": "3.1.0"
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Binder.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Binder.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "buildTransitive/netstandard2.0/Microsoft.Extensions.Configuration.Binder.targets": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection/8.0.0": {
@@ -654,21 +661,30 @@
           "buildTransitive/net6.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
         }
       },
-      "Microsoft.Extensions.Logging.Configuration/3.1.0": {
+      "Microsoft.Extensions.Logging.Configuration/8.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Logging": "3.1.0",
-          "Microsoft.Extensions.Options.ConfigurationExtensions": "3.1.0"
+          "Microsoft.Extensions.Configuration": "8.0.0",
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Configuration.Binder": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Logging": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Options": "8.0.0",
+          "Microsoft.Extensions.Options.ConfigurationExtensions": "8.0.0"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Logging.Configuration.dll": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Configuration.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Logging.Configuration.dll": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Configuration.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
         }
       },
       "Microsoft.Extensions.Options/8.0.0": {
@@ -691,23 +707,27 @@
           "buildTransitive/net6.0/Microsoft.Extensions.Options.targets": {}
         }
       },
-      "Microsoft.Extensions.Options.ConfigurationExtensions/3.1.0": {
+      "Microsoft.Extensions.Options.ConfigurationExtensions/8.0.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "3.1.0",
-          "Microsoft.Extensions.Configuration.Binder": "3.1.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
-          "Microsoft.Extensions.Options": "3.1.0"
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Configuration.Binder": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Options": "8.0.0",
+          "Microsoft.Extensions.Primitives": "8.0.0"
         },
         "compile": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {
+          "lib/net8.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {
+          "lib/net8.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll": {
             "related": ".xml"
           }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
         }
       },
       "Microsoft.Extensions.Primitives/8.0.0": {
@@ -793,52 +813,53 @@
           }
         }
       },
-      "OpenTelemetry/1.5.1": {
+      "OpenTelemetry/1.7.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Logging.Configuration": "3.1.0",
-          "OpenTelemetry.Api.ProviderBuilderExtensions": "1.5.1"
+          "Microsoft.Extensions.Logging": "8.0.0",
+          "Microsoft.Extensions.Logging.Configuration": "8.0.0",
+          "OpenTelemetry.Api.ProviderBuilderExtensions": "1.7.0"
         },
         "compile": {
-          "lib/net6.0/OpenTelemetry.dll": {
+          "lib/net8.0/OpenTelemetry.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/OpenTelemetry.dll": {
+          "lib/net8.0/OpenTelemetry.dll": {
             "related": ".xml"
           }
         }
       },
-      "OpenTelemetry.Api/1.5.1": {
+      "OpenTelemetry.Api/1.7.0": {
         "type": "package",
         "dependencies": {
-          "System.Diagnostics.DiagnosticSource": "7.0.0"
+          "System.Diagnostics.DiagnosticSource": "8.0.0"
         },
         "compile": {
-          "lib/netstandard2.0/OpenTelemetry.Api.dll": {
+          "lib/net8.0/OpenTelemetry.Api.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/OpenTelemetry.Api.dll": {
+          "lib/net8.0/OpenTelemetry.Api.dll": {
             "related": ".xml"
           }
         }
       },
-      "OpenTelemetry.Api.ProviderBuilderExtensions/1.5.1": {
+      "OpenTelemetry.Api.ProviderBuilderExtensions/1.7.0": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.0",
-          "OpenTelemetry.Api": "1.5.1"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "OpenTelemetry.Api": "1.7.0"
         },
         "compile": {
-          "lib/netstandard2.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll": {
+          "lib/net8.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/netstandard2.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll": {
+          "lib/net8.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll": {
             "related": ".xml"
           }
         }
@@ -1128,15 +1149,15 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
-      "System.Diagnostics.DiagnosticSource/7.0.0": {
+      "System.Diagnostics.DiagnosticSource/8.0.0": {
         "type": "package",
         "compile": {
-          "lib/net7.0/System.Diagnostics.DiagnosticSource.dll": {
+          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net7.0/System.Diagnostics.DiagnosticSource.dll": {
+          "lib/net8.0/System.Diagnostics.DiagnosticSource.dll": {
             "related": ".xml"
           }
         },
@@ -2228,20 +2249,34 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Configuration/3.1.0": {
-      "sha512": "Lu41BWNmwhKr6LgyQvcYBOge0pPvmiaK8R5UHXX4//wBhonJyWcT2OK1mqYfEM5G7pTf31fPrpIHOT6sN7EGOA==",
+    "Microsoft.Extensions.Configuration/8.0.0": {
+      "sha512": "0J/9YNXTMWSZP2p2+nvl8p71zpSwokZXZuJW+VjdErkegAnFdO1XlqtA62SJtgVYHdKu3uPxJHcMR/r35HwFBA==",
       "type": "package",
-      "path": "microsoft.extensions.configuration/3.1.0",
+      "path": "microsoft.extensions.configuration/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.dll",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.xml",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Configuration.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Configuration.targets",
+        "lib/net462/Microsoft.Extensions.Configuration.dll",
+        "lib/net462/Microsoft.Extensions.Configuration.xml",
+        "lib/net6.0/Microsoft.Extensions.Configuration.dll",
+        "lib/net6.0/Microsoft.Extensions.Configuration.xml",
+        "lib/net7.0/Microsoft.Extensions.Configuration.dll",
+        "lib/net7.0/Microsoft.Extensions.Configuration.xml",
+        "lib/net8.0/Microsoft.Extensions.Configuration.dll",
+        "lib/net8.0/Microsoft.Extensions.Configuration.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.xml",
-        "microsoft.extensions.configuration.3.1.0.nupkg.sha512",
+        "microsoft.extensions.configuration.8.0.0.nupkg.sha512",
         "microsoft.extensions.configuration.nuspec",
-        "packageIcon.png"
+        "useSharedDesignerContext.txt"
       ]
     },
     "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
@@ -2274,20 +2309,45 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Configuration.Binder/3.1.0": {
-      "sha512": "o9eELDBfNkR7sUtYysFZ1Q7BQ1mYt27DMkups/3vu7xgPyOpMD+iAfrBZFzUXT2iw0fmFb8s1gfNBZS+IgjKdQ==",
+    "Microsoft.Extensions.Configuration.Binder/8.0.0": {
+      "sha512": "mBMoXLsr5s1y2zOHWmKsE9veDcx8h1x/c3rz4baEdQKTeDcmQAPNbB54Pi/lhFO3K431eEq6PFbMgLaa6PHFfA==",
       "type": "package",
-      "path": "microsoft.extensions.configuration.binder/3.1.0",
+      "path": "microsoft.extensions.configuration.binder/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.xml",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/cs/Microsoft.Extensions.Configuration.Binder.SourceGeneration.dll",
+        "analyzers/dotnet/cs/cs/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/de/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/es/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/fr/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/it/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/ja/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/ko/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/pl/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/pt-BR/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/ru/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/tr/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/zh-Hans/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "analyzers/dotnet/cs/zh-Hant/Microsoft.Extensions.Configuration.Binder.SourceGeneration.resources.dll",
+        "buildTransitive/netstandard2.0/Microsoft.Extensions.Configuration.Binder.targets",
+        "lib/net462/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/net462/Microsoft.Extensions.Configuration.Binder.xml",
+        "lib/net6.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/net6.0/Microsoft.Extensions.Configuration.Binder.xml",
+        "lib/net7.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/net7.0/Microsoft.Extensions.Configuration.Binder.xml",
+        "lib/net8.0/Microsoft.Extensions.Configuration.Binder.dll",
+        "lib/net8.0/Microsoft.Extensions.Configuration.Binder.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Binder.xml",
-        "microsoft.extensions.configuration.binder.3.1.0.nupkg.sha512",
+        "microsoft.extensions.configuration.binder.8.0.0.nupkg.sha512",
         "microsoft.extensions.configuration.binder.nuspec",
-        "packageIcon.png"
+        "useSharedDesignerContext.txt"
       ]
     },
     "Microsoft.Extensions.DependencyInjection/8.0.0": {
@@ -2515,20 +2575,33 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Logging.Configuration/3.1.0": {
-      "sha512": "yW3nIoNM3T5iZg8bRViiCN4+vIU/02l+mlWSvKqWnr0Fd5Uk1zKdT9jBWKEcJhRIWKVWWSpFWXnM5yWoIAy1Eg==",
+    "Microsoft.Extensions.Logging.Configuration/8.0.0": {
+      "sha512": "ixXXV0G/12g6MXK65TLngYN9V5hQQRuV+fZi882WIoVJT7h5JvoYoxTEwCgdqwLjSneqh1O+66gM8sMr9z/rsQ==",
       "type": "package",
-      "path": "microsoft.extensions.logging.configuration/3.1.0",
+      "path": "microsoft.extensions.logging.configuration/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Logging.Configuration.dll",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Logging.Configuration.xml",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Logging.Configuration.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Logging.Configuration.targets",
+        "lib/net462/Microsoft.Extensions.Logging.Configuration.dll",
+        "lib/net462/Microsoft.Extensions.Logging.Configuration.xml",
+        "lib/net6.0/Microsoft.Extensions.Logging.Configuration.dll",
+        "lib/net6.0/Microsoft.Extensions.Logging.Configuration.xml",
+        "lib/net7.0/Microsoft.Extensions.Logging.Configuration.dll",
+        "lib/net7.0/Microsoft.Extensions.Logging.Configuration.xml",
+        "lib/net8.0/Microsoft.Extensions.Logging.Configuration.dll",
+        "lib/net8.0/Microsoft.Extensions.Logging.Configuration.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Logging.Configuration.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Logging.Configuration.xml",
-        "microsoft.extensions.logging.configuration.3.1.0.nupkg.sha512",
+        "microsoft.extensions.logging.configuration.8.0.0.nupkg.sha512",
         "microsoft.extensions.logging.configuration.nuspec",
-        "packageIcon.png"
+        "useSharedDesignerContext.txt"
       ]
     },
     "Microsoft.Extensions.Options/8.0.0": {
@@ -2578,20 +2651,34 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Options.ConfigurationExtensions/3.1.0": {
-      "sha512": "tx6gMKE3rDspA1YZT8SlQJmyt1BaBSl6mNjB3g0ZO6m3NnoavCifXkGeBuDk9Ae4XjW8C+dty52p+0u38jPRIQ==",
+    "Microsoft.Extensions.Options.ConfigurationExtensions/8.0.0": {
+      "sha512": "0f4DMRqEd50zQh+UyJc+/HiBsZ3vhAQALgdkcQEalSH1L2isdC7Yj54M3cyo5e+BeO5fcBQ7Dxly8XiBBcvRgw==",
       "type": "package",
-      "path": "microsoft.extensions.options.configurationextensions/3.1.0",
+      "path": "microsoft.extensions.options.configurationextensions/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
-        "lib/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Options.ConfigurationExtensions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Options.ConfigurationExtensions.targets",
+        "lib/net462/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/net462/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "lib/net6.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/net6.0/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "lib/net7.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/net7.0/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
+        "lib/net8.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
+        "lib/net8.0/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Options.ConfigurationExtensions.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Options.ConfigurationExtensions.xml",
-        "microsoft.extensions.options.configurationextensions.3.1.0.nupkg.sha512",
+        "microsoft.extensions.options.configurationextensions.8.0.0.nupkg.sha512",
         "microsoft.extensions.options.configurationextensions.nuspec",
-        "packageIcon.png"
+        "useSharedDesignerContext.txt"
       ]
     },
     "Microsoft.Extensions.Primitives/8.0.0": {
@@ -2773,10 +2860,10 @@
         "postgresql.png"
       ]
     },
-    "OpenTelemetry/1.5.1": {
-      "sha512": "bWTspK1v8OnYgGa84+o9pESro3uO5xsfw0CX8ZvuERxbGbvPO4rCcpL2Q36f3tjTORyDszVi8GIDMTCM9YUFZQ==",
+    "OpenTelemetry/1.7.0": {
+      "sha512": "HNmOJg++4FtEJGCIn1dCJcDkHRLNuLKU047owrGXUOfz/C/c5oZHOPKrowKVOy2jOOh/F9+HDshzeOk5NnQEZg==",
       "type": "package",
-      "path": "opentelemetry/1.5.1",
+      "path": "opentelemetry/1.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2784,44 +2871,54 @@
         "lib/net462/OpenTelemetry.xml",
         "lib/net6.0/OpenTelemetry.dll",
         "lib/net6.0/OpenTelemetry.xml",
+        "lib/net8.0/OpenTelemetry.dll",
+        "lib/net8.0/OpenTelemetry.xml",
         "lib/netstandard2.0/OpenTelemetry.dll",
         "lib/netstandard2.0/OpenTelemetry.xml",
         "lib/netstandard2.1/OpenTelemetry.dll",
         "lib/netstandard2.1/OpenTelemetry.xml",
         "opentelemetry-icon-color.png",
-        "opentelemetry.1.5.1.nupkg.sha512",
+        "opentelemetry.1.7.0.nupkg.sha512",
         "opentelemetry.nuspec"
       ]
     },
-    "OpenTelemetry.Api/1.5.1": {
-      "sha512": "kSvofM5w4PXwINv2UBgyf248N1MQtUiy96q4PBmuEdtXAH6ooyhfu70JYYc/VpVTR4Eja91k7kHFlGtkHHy+Rg==",
+    "OpenTelemetry.Api/1.7.0": {
+      "sha512": "w5uDHl1Nm7R5igWu1QjewpdPzJSavua8NTI3+iThOdRNHD3cabox8JeIJ8LpBSXGHARSNFMJZ/Xr5EGRinMTMg==",
       "type": "package",
-      "path": "opentelemetry.api/1.5.1",
+      "path": "opentelemetry.api/1.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net462/OpenTelemetry.Api.dll",
         "lib/net462/OpenTelemetry.Api.xml",
+        "lib/net6.0/OpenTelemetry.Api.dll",
+        "lib/net6.0/OpenTelemetry.Api.xml",
+        "lib/net8.0/OpenTelemetry.Api.dll",
+        "lib/net8.0/OpenTelemetry.Api.xml",
         "lib/netstandard2.0/OpenTelemetry.Api.dll",
         "lib/netstandard2.0/OpenTelemetry.Api.xml",
         "opentelemetry-icon-color.png",
-        "opentelemetry.api.1.5.1.nupkg.sha512",
+        "opentelemetry.api.1.7.0.nupkg.sha512",
         "opentelemetry.api.nuspec"
       ]
     },
-    "OpenTelemetry.Api.ProviderBuilderExtensions/1.5.1": {
-      "sha512": "wX+eoSA3WLiAA7tpoDrv/EtvR7xOapAkMb1jZ0xn60wFJ+XnL5OKccbliCvb298hlCnk751BJUaZXASqL5MOnQ==",
+    "OpenTelemetry.Api.ProviderBuilderExtensions/1.7.0": {
+      "sha512": "fHLmJcRJk1dAwddjBgvqi/Grmr04hPo1DoFwTa6hxtSvAFOXPU56Xe9Sh2VXqz6Gstzp6TCju8z0Sob1t7BzSg==",
       "type": "package",
-      "path": "opentelemetry.api.providerbuilderextensions/1.5.1",
+      "path": "opentelemetry.api.providerbuilderextensions/1.7.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "lib/net462/OpenTelemetry.Api.ProviderBuilderExtensions.dll",
         "lib/net462/OpenTelemetry.Api.ProviderBuilderExtensions.xml",
+        "lib/net6.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll",
+        "lib/net6.0/OpenTelemetry.Api.ProviderBuilderExtensions.xml",
+        "lib/net8.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll",
+        "lib/net8.0/OpenTelemetry.Api.ProviderBuilderExtensions.xml",
         "lib/netstandard2.0/OpenTelemetry.Api.ProviderBuilderExtensions.dll",
         "lib/netstandard2.0/OpenTelemetry.Api.ProviderBuilderExtensions.xml",
         "opentelemetry-icon-color.png",
-        "opentelemetry.api.providerbuilderextensions.1.5.1.nupkg.sha512",
+        "opentelemetry.api.providerbuilderextensions.1.7.0.nupkg.sha512",
         "opentelemetry.api.providerbuilderextensions.nuspec"
       ]
     },
@@ -3170,10 +3267,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Diagnostics.DiagnosticSource/7.0.0": {
-      "sha512": "9W0ewWDuAyDqS2PigdTxk6jDKonfgscY/hP8hm7VpxYhNHZHKvZTdRckberlFk3VnCmr3xBUyMBut12Q+T2aOw==",
+    "System.Diagnostics.DiagnosticSource/8.0.0": {
+      "sha512": "c9xLpVz6PL9lp/djOWtk5KPDZq3cSYpmXoJQY524EOtuFl5z9ZtsotpsyrDW40U1DRnQSYvcPKEUV0X//u6gkQ==",
       "type": "package",
-      "path": "system.diagnostics.diagnosticsource/7.0.0",
+      "path": "system.diagnostics.diagnosticsource/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3190,9 +3287,11 @@
         "lib/net6.0/System.Diagnostics.DiagnosticSource.xml",
         "lib/net7.0/System.Diagnostics.DiagnosticSource.dll",
         "lib/net7.0/System.Diagnostics.DiagnosticSource.xml",
+        "lib/net8.0/System.Diagnostics.DiagnosticSource.dll",
+        "lib/net8.0/System.Diagnostics.DiagnosticSource.xml",
         "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.dll",
         "lib/netstandard2.0/System.Diagnostics.DiagnosticSource.xml",
-        "system.diagnostics.diagnosticsource.7.0.0.nupkg.sha512",
+        "system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512",
         "system.diagnostics.diagnosticsource.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -3476,6 +3575,7 @@
       "Microsoft.EntityFrameworkCore.Design >= 8.0.1",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.19.5",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.0",
+      "OpenTelemetry >= 1.7.0",
       "OpenTelemetry.Exporter.Console >= 1.5.1",
       "OpenTelemetry.Exporter.OpenTelemetryProtocol >= 1.5.1",
       "OpenTelemetry.Extensions.Hosting >= 1.5.1",
@@ -3547,6 +3647,10 @@
           "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
             "version": "[8.0.0, )"
+          },
+          "OpenTelemetry": {
+            "target": "Package",
+            "version": "[1.7.0, )"
           },
           "OpenTelemetry.Exporter.Console": {
             "target": "Package",

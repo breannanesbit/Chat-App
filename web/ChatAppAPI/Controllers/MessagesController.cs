@@ -28,6 +28,9 @@ namespace ChatAppAPI.Controllers
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
 
+            Metrics.ApiCalls.Add(1);
+
+
             return CreatedAtAction(nameof(GetMessages), new { id = message.Id }, message);
         }
     }
