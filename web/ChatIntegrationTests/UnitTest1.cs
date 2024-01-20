@@ -4,6 +4,7 @@ using Shared;
 
 namespace ChatIntegrationTests;
 
+[TestFixture]
 public class Tests
 {
     private MessageContext _context;
