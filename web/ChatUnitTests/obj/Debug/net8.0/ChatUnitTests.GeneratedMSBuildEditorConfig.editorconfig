@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ChatUnitTests
-build_property.ProjectDir = C:\Users\brebr\distributed\ChatApp\web\ChatUnitTests\
+build_property.ProjectDir = C:\Users\bobby\source\repos\Chat-App7\web\ChatUnitTests\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

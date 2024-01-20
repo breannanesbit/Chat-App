@@ -1,43 +1,43 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
       "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
     },
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\obj\\Debug\\net8.0\\compressed\\wyubo4wqdg.gz",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\obj\\Debug\\net8.0\\compressed\\ypuc7lyzn8.gz",
       "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
     },
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChatAppWeb.styles.css",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ChatAppWeb.styles.css",
       "PackagePath": "staticwebassets\\ChatAppWeb.styles.css"
     },
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\wwwroot\\css\\app.css",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\wwwroot\\css\\app.css",
       "PackagePath": "staticwebassets\\css\\app.css"
     },
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\wwwroot\\favicon.png",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\wwwroot\\icon-192.png",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\wwwroot\\icon-192.png",
       "PackagePath": "staticwebassets\\icon-192.png"
     },
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\wwwroot\\index.html",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
-      "Id": "C:\\Users\\brebr\\distributed\\ChatApp\\web\\ChatAppWeb\\wwwroot\\sample-data\\weather.json",
+      "Id": "C:\\Users\\bobby\\source\\repos\\Chat-App7\\web\\ChatAppWeb\\wwwroot\\sample-data\\weather.json",
       "PackagePath": "staticwebassets\\sample-data\\weather.json"
     },
     {

@@ -9,16 +9,19 @@ namespace ChatAppAPI.Controllers
     [ApiController]
     public class MessagesController : ControllerBase
     {
+        private readonly ILogger<MessagesController> _logger;
         private readonly MessageContext _context;
 
-        public MessagesController(MessageContext context)
+        public MessagesController(ILogger<MessagesController> logger, MessageContext context)
         {
+            _logger = logger;
             _context = context;
         }
 
         [HttpGet("AllMessage")]
         public async Task<List<Message>> GetMessages()
         {
+            _logger.LogInformation("Getting messages in API at {time}", DateTime.Now);
             return await _context.Messages.ToListAsync();
         }
 
@@ -28,6 +31,7 @@ namespace ChatAppAPI.Controllers
             _context.Messages.Add(message);
             await _context.SaveChangesAsync();
 
+            _logger.LogInformation("Adding a message in the API at {time}", DateTime.Now);
             Metrics.ApiCalls.Add(1);
 
 
