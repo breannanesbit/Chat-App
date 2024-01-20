@@ -8,6 +8,8 @@ exporters:
     loglevel: debug
   grafana-loki:
     endpoint: "http://loki:3100/loki/api/v1/push"
+  prometheus:
+    endpoint: "http://localhost:9090"
 
 processors:
   batch:
@@ -17,11 +19,11 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, grafana-loki]
-    metrics:
-      receivers: [otlp]
-      processors: [batch]
       exporters: [logging]
+    metrics:
+      receivers: [otlp, prometheus]
+      processors: [batch]
+      exporters: [logging, prometheus]
     logs:
       receivers: [otlp]
       processors: [batch]

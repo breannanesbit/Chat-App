@@ -13,10 +13,10 @@ scrape_configs:
 
   - job_name: 'your-app'
     static_configs:
-      - targets: ['your-app:your-metrics-port']
+      - targets: ['localhost:7002']
 
 remote_write:
-  - url: http://loki:3100/loki/api/v1/push
+  - url: "http://loki:3100/loki/api/v1/push"
     basic_auth:
       username: 'admin'
       password: 'admin'

@@ -85,9 +85,18 @@ services:
       - '--web.enable-lifecycle'
     expose:
       - 9090
+    ports:
+      - 9090:9090
     networks:
       - monitoring
 
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+    container_name: zipkin
+    environment:
+      - STORAGE_TYPE=mem
+    ports:
+      - 9411:9411
  
 volumes:
   postgres_data:

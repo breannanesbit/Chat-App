@@ -39,9 +39,10 @@ public class Tests
         };
 
         var addMessageResponse = await api.PostMessage(message);
-        Assert.AreEqual(message.MessageText, addMessageResponse.Value.MessageText);
+        //Assert.AreEqual(message.MessageText, addMessageResponse.Value.MessageText);
 
         var getMessages = await api.GetMessages();
         Assert.IsNotEmpty(getMessages);
+        Assert.AreEqual(message.MessageText, getMessages[0].MessageText);
     }
 }
