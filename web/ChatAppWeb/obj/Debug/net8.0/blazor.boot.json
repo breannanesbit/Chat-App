@@ -1,15 +1,15 @@
 {
   "mainAssemblyName": "ChatAppWeb",
   "resources": {
-    "hash": "sha256-s4hifQa8bc7qHoSJve+66arlu+wm05UGmXYCGzlEfaQ=",
+    "hash": "sha256-Fbs4n8QdFvVjM+jNmVoXD53HfBGBc6H9xCHhjNTR6AA=",
     "jsModuleNative": {
-      "dotnet.native.8.0.0.1mkeirx5qq.js": "sha256-LjLDIz9+J7uuiwMlQ4HbNx2BnSpphOtO2MwkoI28vdI="
+      "dotnet.native.8.0.1.u3j7q4v2pv.js": "sha256-SGOlISx+3G4kkvpC9Uq3qoPGsnjxGmW61QBev0lyI5U="
     },
     "jsModuleRuntime": {
-      "dotnet.runtime.8.0.0.bgi2yqx6gv.js": "sha256-WdSX3HQvnBYF0KJLZoOyHvTzMHetaob6PV0Kn2K+QXw="
+      "dotnet.runtime.8.0.1.jwp1eve549.js": "sha256-HZOoaGpz9ekMa/oSmeApSKp3DXNdVUq2UBqsTIIiN8A="
     },
     "wasmNative": {
-      "dotnet.native.wasm": "sha256-Vr6ZXKoP77zgabrMIxQ1GbOkrxfx5XGqHO0odLhUIMY="
+      "dotnet.native.wasm": "sha256-dqpunZywlYy86b4O6ZjONasmG+4FH0P17FZ0OIf/lIg="
     },
     "icu": {
       "icudt_CJK.dat": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
@@ -215,12 +215,12 @@
       "mscorlib.wasm": "sha256-cDuLeL3OCtVtiid/dyex1MVgbuzDSRwZxKzuP2Dp4mg=",
       "netstandard.wasm": "sha256-A0h86SDieTMoU/wU2JTszWCsUmMuguDcbap0b0BzsmI=",
       "System.Private.CoreLib.wasm": "sha256-/0DNIm/T0C07X7Tuz5uR8JvVCoAfEE2MnfPUSjyS9xc=",
-      "Shared.wasm": "sha256-NgHU8S32A9dnHEb6ZZsO60aDIgCqNBkfvEsMW7ipueM=",
-      "ChatAppWeb.wasm": "sha256-VeBi5gODVHxW2ni8JNLuMucuNJG+gxW6J+4M/5AqvS8="
+      "Shared.wasm": "sha256-vIUqoWy1n7v3Kyvl1fDI8xkL82LH8EEv7vjyZNm+LC8=",
+      "ChatAppWeb.wasm": "sha256-1N5GZ7KSKdbF6kidkaJY13X4aBVUs4s74J/IHQ84gtM="
     },
     "pdb": {
-      "Shared.pdb": "sha256-kTbgTCkwykXCV9NrA47qNNgNq8iwAGUzCpD1IfWy6F4=",
-      "ChatAppWeb.pdb": "sha256-EHZaqKocWicaXZMDb+IqUd1vqUPDFisvedGvp73chTE="
+      "Shared.pdb": "sha256-hzLnVL3vlK8EIe1W8iA1ab4OeNg49PjsMbiUpm1oDek=",
+      "ChatAppWeb.pdb": "sha256-SgIwfmkQ5UxW6mF/0tYgkPB3KhdvU/7L5Yxis0SGWgQ="
     }
   },
   "cacheBootResources": true,
