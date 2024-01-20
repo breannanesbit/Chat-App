@@ -9,8 +9,8 @@ namespace ChatIntegrationTests;
 [TestFixture]
 public class Tests
 {
-    internal MessageContext _context;
-    internal MessagesController api;
+    public MessageContext _context;
+    public MessagesController api;
 
     [SetUp]
     public void Setup()
