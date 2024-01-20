@@ -56,7 +56,7 @@
 </div>
 
 @code {
-    private Message NewMessage = new Message();
+    private Message NewMessage = new Message { Sender = "", MessageText = "" };
     private List<Message> ChatBoxMessages = new List<Message>();
     private ChatBox chatBox;
 
@@ -87,6 +87,4 @@
         await LoadMessages();
         NewMessage = new Message();
     }
-
-
 }
