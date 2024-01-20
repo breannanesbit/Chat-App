@@ -85,6 +85,6 @@
 
         // Reload messages after sending a new message
         await LoadMessages();
-        NewMessage = new Message();
+        NewMessage = new Message { Sender = "", MessageText = "" };
     }
 }
