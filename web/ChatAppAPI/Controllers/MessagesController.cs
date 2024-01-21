@@ -49,6 +49,7 @@ namespace ChatAppAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Can't send messages in API at {time}", DateTime.Now);
                 Metrics.FailedCalls.Add(1);
                 Metrics.ApiCalls.Add(1);
             }
