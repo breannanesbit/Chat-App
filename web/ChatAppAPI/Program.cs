@@ -43,7 +43,8 @@ internal class Program
                 .AddConsoleExporter()
                 .AddOtlpExporter()
                 .AddMeter(Metrics.ApiCalls.Name)
-                .AddMeter(Metrics.FailedCalls.Name));
+                .AddMeter(Metrics.FailedCalls.Name)
+                .AddMeter(Metrics.SuccessCalls.Name));
 
         //Logs--------------------------------------------------------------------
         /* ILogger Logger = new LoggerConfiguration()
