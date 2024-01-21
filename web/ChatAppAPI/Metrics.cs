@@ -8,7 +8,7 @@ namespace ChatAppAPI
         public static Meter m = new Meter("ChatAppApi");
 
         public static Counter<int> ApiCalls = m.CreateCounter<int>("api_request_counter");
-        // public static Counter<int> MoviesCalls = m.CreateCounter<int>("movie calls");
+        public static Counter<int> FailedCalls = m.CreateCounter<int>("Failed_api_calls");
 
     }
 }

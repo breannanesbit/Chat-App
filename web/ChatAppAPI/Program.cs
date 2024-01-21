@@ -1,12 +1,13 @@
+using ChatAppAPI;
 using Microsoft.EntityFrameworkCore;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Serilog;
+using Serilog.Exceptions;
+using Serilog.Sinks.Loki;
 using Shared;
 using System.Reflection;
-using Serilog;
-using Serilog.Sinks.Loki;
-using Serilog.Exceptions;
 
 internal class Program
 {
@@ -14,11 +15,10 @@ internal class Program
     {
         var builder = WebApplication.CreateBuilder(args);
         builder.Logging.ClearProviders();
-        
+
         // Add services to the container.
 
         builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
         builder.Services.AddDbContext<MessageContext>(options =>
@@ -41,18 +41,21 @@ internal class Program
             .WithMetrics(metrics => metrics.AddAspNetCoreInstrumentation()
                 .AddRuntimeInstrumentation()
                 .AddConsoleExporter()
-                .AddOtlpExporter());
+                .AddOtlpExporter()
+                .AddMeter(Metrics.ApiCalls.Name)
+                .AddMeter(Metrics.FailedCalls.Name));
+
         //Logs--------------------------------------------------------------------
-       /* ILogger Logger = new LoggerConfiguration()
-            .WriteTo.GrafanaLoki("http://loki:3100")
-            .CreateLogger();*/
+        /* ILogger Logger = new LoggerConfiguration()
+             .WriteTo.GrafanaLoki("http://loki:3100")
+             .CreateLogger();*/
         builder.Host.UseSerilog((context, loggerConfig) =>
         {
             loggerConfig.WriteTo.Console()
             .Enrich.WithExceptionDetails()
             .WriteTo.LokiHttp("http://loki:3100/loki/api/v1/push");
-            
-         
+
+
             /*.WriteTo.Sink(new GrafanaLokiSink("http://loki:3100"));*/
         });
 

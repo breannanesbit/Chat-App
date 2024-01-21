@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: ./ChatAppWeb/Dockerfile
     restart: unless-stopped
+    ports:
+      - 4001:8080
     mem_limit: 512M
 
   api: 
@@ -13,7 +15,7 @@ services:
       dockerfile: ./ChatAppAPI/Dockerfile
     restart: unless-stopped
     ports: 
-        - 4002:80
+        - 4002:8080
     labels:
     - "prometheus.io/scrape=true"
     - "prometheus.io/path=/metrics"
