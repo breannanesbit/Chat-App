@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\web",
+    "\\web\\ChatAppAPI",
+    "\\web\\ChatAppWeb"
   ],
-  "SelectedNode": "\\web.sln",
+  "SelectedNode": "\\web\\web.sln",
   "PreviewInSolutionExplorer": false
 }

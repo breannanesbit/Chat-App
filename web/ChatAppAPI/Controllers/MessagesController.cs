@@ -25,6 +25,7 @@ namespace ChatAppAPI.Controllers
             var response = await _context.Messages.ToListAsync();
             if (response != null)
             {
+                Metrics.SuccessCalls.Add(1);
                 return response;
             }
             else
@@ -43,7 +44,8 @@ namespace ChatAppAPI.Controllers
                 await _context.SaveChangesAsync();
 
                 _logger.LogInformation("Adding a message in the API at {time}", DateTime.Now);
-
+                Metrics.SuccessCalls.Add(1);
+                return Ok(message);
             }
             catch (Exception ex)
             {
