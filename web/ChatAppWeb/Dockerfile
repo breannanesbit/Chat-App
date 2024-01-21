@@ -17,7 +17,6 @@ RUN dotnet publish "ChatAppWeb.csproj" -c Release -o /app/publish /p:UseAppHost=
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY ["ChatAppWeb/ChatAppWeb.runtimeconfig.json", "."]  # Add this line
 ENTRYPOINT ["dotnet", "ChatAppWeb.dll"]
 
 #FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
