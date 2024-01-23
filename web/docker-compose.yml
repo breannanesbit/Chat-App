@@ -21,6 +21,8 @@ services:
     - "prometheus.io/scrape=true"
     - "prometheus.io/path=/metrics"
     - "prometheus.io/port=4002"
+    networks:
+      - database_network
 
   
   postgres:
@@ -35,6 +37,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - database_network
 
 
   grafana:
@@ -112,6 +116,8 @@ volumes:
 
 networks:
   monitoring:
+    driver: bridge
+  database_network:
     driver: bridge
 
 

@@ -22,15 +22,24 @@ namespace ChatAppAPI.Controllers
         public async Task<List<Message>> GetMessages()
         {
             _logger.LogInformation("Getting messages in API at {time}", DateTime.Now);
-            var response = await _context.Messages.ToListAsync();
-            if (response != null)
+            try
             {
-                Metrics.SuccessCalls.Add(1);
-                return response;
+                var response = await _context.Messages.ToListAsync();
+                if (response != null)
+                {
+                    Metrics.SuccessCalls.Add(1);
+                    return response;
+                }
+                else
+                {
+                    _logger.LogInformation("nothing in Messages");
+                    return new List<Message>();
+                }
             }
-            else
+            catch (Exception ex)
             {
                 Metrics.FailedCalls.Add(1);
+                _logger.LogInformation($"{ex.Message} failed to get messages");
                 return new List<Message>();
             }
         }
