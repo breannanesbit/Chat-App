@@ -13,7 +13,7 @@ scrape_configs:
 
   - job_name: 'your-app'
     static_configs:
-      - targets: ['localhost:7002']
+      - targets: ['api:4002']
 
 remote_write:
   - url: "http://loki:3100/loki/api/v1/push"

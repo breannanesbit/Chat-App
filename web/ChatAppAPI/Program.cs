@@ -54,7 +54,7 @@ internal class Program
         {
             loggerConfig.WriteTo.Console()
             .Enrich.WithExceptionDetails()
-            .WriteTo.LokiHttp("http://loki:3100/loki/api/v1/push");
+            .WriteTo.LokiHttp("http://loki:3100");
 
 
             /*.WriteTo.Sink(new GrafanaLokiSink("http://loki:3100"));*/
