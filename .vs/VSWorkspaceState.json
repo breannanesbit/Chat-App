@@ -3,7 +3,8 @@
     "",
     "\\web",
     "\\web\\ChatAppAPI",
-    "\\web\\ChatAppWeb"
+    "\\web\\ChatAppWeb",
+    "\\web\\Shared"
   ],
   "SelectedNode": "\\web\\web.sln",
   "PreviewInSolutionExplorer": false
