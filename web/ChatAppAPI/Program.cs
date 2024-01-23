@@ -42,7 +42,7 @@ internal class Program
                 .AddRuntimeInstrumentation()
                 .AddConsoleExporter()
                 .AddOtlpExporter()
-                .AddMeter(Metrics.ApiCalls.Name)
+                .AddMeter(Metrics.m.Name)
                 .AddMeter(Metrics.FailedCalls.Name)
                 .AddMeter(Metrics.SuccessCalls.Name));
 
