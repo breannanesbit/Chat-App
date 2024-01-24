@@ -2,6 +2,7 @@
 @using ChatAppWeb.Services
 @using ChatAppWeb.classes
 @using Shared
+@using Microsoft.AspNetCore.Components.Forms
 @inject MessageService service;
 <PageTitle>Chat Room</PageTitle>
 
@@ -44,6 +45,14 @@
                         <input class="form-control m-0 p-1" @bind="NewMessage!.MessageText" placeholder="Hello!"/>
                     </div>
                 </div>
+                <div class="form-group row m-0">
+                    <label class="col-3 text-end">
+                        Image:
+                    </label>
+                    <div class="col-9 align-content-end">
+                        <InputFile class="form-control m-0 p-1" type="file" accept="image/*" @onchange="HandleImageUpload"/>
+                    </div>
+                </div>
             </div>
             <div class="col col-2">
                 <div class="form-group mt-3 row align-content-end">
@@ -59,7 +68,7 @@
     private Message NewMessage = new Message { Sender = "", MessageText = "" };
     private List<Message> ChatBoxMessages = new List<Message>();
     private ChatBox chatBox;
-
+    private long MaxFileSize = 100*1024*1024;
     protected override async Task OnInitializedAsync()
     {
         // Initialize the ChatBox class by injecting the MessageService
@@ -74,6 +83,32 @@
         // Use the ChatBox class to get messages
         ChatBoxMessages = await chatBox.GetMessagesAsync();
 
+    }
+    private async Task HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file != null && file.Size <= MaxFileSize)
+        {
+
+            try
+            {
+                var buffer = new byte[file.Size];
+                await file.OpenReadStream().ReadAsync(buffer);
+                messageDto.Image = new FileParameter(buffer, file.Name);
+                
+            } catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+        }
+    }
+    private async Task SaveBase64ImageToVolume(string base64Image)
+    {
+        var volumePath = "/app/Images"; 
+        var filePath = Path.Combine(volumePath, "uploaded_image.txt");
+        Directory.CreateDirectory(volumePath);
+        await File.WriteAllTextAsync(filePath, base64Image);
     }
 
     private async Task SendMessage()
