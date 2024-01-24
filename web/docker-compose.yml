@@ -22,7 +22,7 @@ services:
     - "prometheus.io/path=/metrics"
     - "prometheus.io/port=4002"
     volumes:
-      - images_data:/var/lib/Images
+      - images_data:/app/Images
     networks:
       - database_network
 

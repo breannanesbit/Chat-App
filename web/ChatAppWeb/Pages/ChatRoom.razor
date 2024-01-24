@@ -1,9 +1,12 @@
 ﻿@page "/chatRoom"
 @using ChatAppWeb.Services
 @using ChatAppWeb.classes
+@using Microsoft.AspNetCore.Http;
+@using System.IO;
 @using Shared
 @using Microsoft.AspNetCore.Components.Forms
 @inject MessageService service;
+@inject MessageWithImageDto messageDto;
 <PageTitle>Chat Room</PageTitle>
 
 <div class="vh-100 pb-5 d-flex flex-column overflow-hidden container-fluid">
@@ -50,7 +53,7 @@
                         Image:
                     </label>
                     <div class="col-9 align-content-end">
-                        <InputFile class="form-control m-0 p-1" type="file" accept="image/*" @onchange="HandleImageUpload"/>
+                        <InputFile class="form-control m-0 p-1" type="file" accept="image/*" @onchange="HandleImageUpload" />
                     </div>
                 </div>
             </div>
@@ -84,25 +87,36 @@
         ChatBoxMessages = await chatBox.GetMessagesAsync();
 
     }
+    
     private async Task HandleImageUpload(InputFileChangeEventArgs e)
     {
         var file = e.File;
+
         if (file != null && file.Size <= MaxFileSize)
         {
-
             try
             {
-                var buffer = new byte[file.Size];
-                await file.OpenReadStream().ReadAsync(buffer);
-                messageDto.Image = new FileParameter(buffer, file.Name);
-                
-            } catch(Exception ex)
+                using (var memoryStream = new MemoryStream())
+                {
+                    await file.OpenReadStream().CopyToAsync(memoryStream);
+                    memoryStream.Position = 0;
+
+                    var buffer = new byte[memoryStream.Length];
+                    await memoryStream.ReadAsync(buffer, 0, (int)memoryStream.Length);
+                    var base64Image = Convert.ToBase64String(buffer);
+
+                    // Set the base64 encoded image in your messageDto
+                    messageDto.Image = base64Image;
+                }
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
-
         }
     }
+
+
     private async Task SaveBase64ImageToVolume(string base64Image)
     {
         var volumePath = "/app/Images"; 

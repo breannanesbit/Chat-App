@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Shared;
 
 
+
 namespace ChatAppAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -52,7 +53,7 @@ namespace ChatAppAPI.Controllers
             try
             {
                 // Handle the uploaded image
-                var imagePath = await SaveImage(messageDto.Image);
+                var imagePath = await SaveBase64ImageToVolume(messageDto.Image);
 
                 // Save the message with the image path in the database
                 var message = new Message
@@ -79,32 +80,13 @@ namespace ChatAppAPI.Controllers
             }
         }
 
-        private async Task<string> SaveImage(IFormFile image)
+        private async Task<string> SaveBase64ImageToVolume(string base64Image)
         {
-            if (image == null || image.Length == 0)
-            {
-                return null; // No image uploaded
-            }
-
-            try
-            {
-                var uploads = Path.Combine(_webHostEnvironment.ContentRootPath, "uploads");
-                Directory.CreateDirectory(uploads); // Ensure the directory exists
-
-                var imagePath = Path.Combine(uploads, image.FileName);
-
-                using (var fileStream = new FileStream(imagePath, FileMode.Create))
-                {
-                    await image.CopyToAsync(fileStream);
-                }
-
-                return imagePath;
-            }
-            catch (Exception ex)
-            {
-                // Handle exception (log, return error response, etc.)
-                return null;
-            }
+            var volumePath = "/app/Images";
+            var filePath = Path.Combine(volumePath, "uploaded_image.txt");
+            Directory.CreateDirectory(volumePath);
+            await System.IO.File.WriteAllTextAsync(filePath, base64Image);
+            return filePath;
         }
 
     }
