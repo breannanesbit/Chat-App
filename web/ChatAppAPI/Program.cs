@@ -24,6 +24,7 @@ internal class Program
         builder.Services.AddDbContext<MessageContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+        Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
 
         builder.Services.AddOpenTelemetry()
             .ConfigureResource(resource => resource.AddService(
@@ -42,7 +43,7 @@ internal class Program
                 .AddRuntimeInstrumentation()
                 .AddConsoleExporter()
                 .AddOtlpExporter()
-                .AddMeter(Metrics.ApiCalls.Name)
+                .AddMeter(Metrics.m.Name)
                 .AddMeter(Metrics.FailedCalls.Name)
                 .AddMeter(Metrics.SuccessCalls.Name));
 

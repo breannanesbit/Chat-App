@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\web",
+    "\\web\\ChatAppAPI",
     "\\web\\ChatAppWeb",
-    "\\web\\ChatAppWeb\\Pages"
+    "\\web\\Shared"
   ],
   "SelectedNode": "\\web\\ChatAppWeb\\Pages\\ChatRoom.razor",
   "PreviewInSolutionExplorer": false
