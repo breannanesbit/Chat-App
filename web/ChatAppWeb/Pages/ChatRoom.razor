@@ -1,12 +1,12 @@
 ﻿@page "/chatRoom"
 @using ChatAppWeb.Services
 @using ChatAppWeb.classes
-@using Microsoft.AspNetCore.Http;
 @using System.IO;
 @using Shared
 @using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Http
 @inject MessageService service;
-@inject MessageWithImageDto messageDto;
 <PageTitle>Chat Room</PageTitle>
 
 <div class="vh-100 pb-5 d-flex flex-column overflow-hidden container-fluid">
@@ -59,7 +59,7 @@
             </div>
             <div class="col col-2">
                 <div class="form-group mt-3 row align-content-end">
-                    <button class="btn btn-primary" type="submit" @onclick="SendMessage">Send</button>
+                    <button class="btn btn-primary" type="submit" @onclick="@(() => SendMessage())">Send</button>
                 </div>
             </div>
         </form>
@@ -72,6 +72,7 @@
     private List<Message> ChatBoxMessages = new List<Message>();
     private ChatBox chatBox;
     private long MaxFileSize = 100*1024*1024;
+    private MessageWithImageDto messageDto = new MessageWithImageDto();
     protected override async Task OnInitializedAsync()
     {
         // Initialize the ChatBox class by injecting the MessageService
