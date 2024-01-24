@@ -21,6 +21,8 @@ services:
     - "prometheus.io/scrape=true"
     - "prometheus.io/path=/metrics"
     - "prometheus.io/port=4002"
+    volumes:
+      - images_data:/var/lib/Images
     networks:
       - database_network
 
@@ -112,6 +114,7 @@ services:
 volumes:
   postgres_data:
   prometheus_data: 
+  images_data:
 
 
 networks:
