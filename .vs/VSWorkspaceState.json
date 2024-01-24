@@ -6,6 +6,6 @@
     "\\web\\ChatAppWeb",
     "\\web\\Shared"
   ],
-  "SelectedNode": "\\web\\web.sln",
+  "SelectedNode": "\\web\\ChatAppWeb\\Pages\\ChatRoom.razor",
   "PreviewInSolutionExplorer": false
 }
