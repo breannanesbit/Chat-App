@@ -11,3 +11,4 @@ CREATE TABLE IF NOT EXISTS "Messages" (
 );
 INSERT INTO "Messages" ("Sender", "MessageText", "Timestamp") VALUES ('John', 'Hello, how are you?', '', DEFAULT);
 INSERT INTO "Messages" ("Sender", "MessageText", "Timestamp") VALUES ('Alice', 'Hi John! Im doing well.', '', DEFAULT);
+INSERT INTO messages  (sender, message_text) VALUES ('John', 'Hello, how are you?');
