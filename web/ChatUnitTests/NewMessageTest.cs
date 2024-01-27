@@ -7,7 +7,6 @@ public class NewMessageTest
     {
         //int messageCount = ChatBox.Messages.Count;
         //ChatBox.NewMessage = new Shared.Message { Timestamp = 1/11/2024 1:34:55, Sender = "Riddle", MessageText = "About Time!" };
-
         //ChatBox.;
 
         Assert.Greater(1, 0);
