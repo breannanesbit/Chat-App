@@ -40,6 +40,7 @@ public class Tests
             Sender = "Toby Tester",
             MessageText = "This is a Test Message",
             Timestamp = DateTime.Now,
+            ImagePath = "",
         };
 
         var dtoMessage = new MessageWithImageDto()
