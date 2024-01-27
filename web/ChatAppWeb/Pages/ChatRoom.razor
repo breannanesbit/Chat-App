@@ -68,11 +68,11 @@
 </div>
 
 @code {
-    private Message NewMessage = new Message { Sender = "", MessageText = "" };
+    private Message NewMessage = new Message { Sender = "", MessageText = "", ImagePath = "" };
     private List<Message> ChatBoxMessages = new List<Message>();
     private ChatBox chatBox;
     private long MaxFileSize = 100*1024*1024;
-    private MessageWithImageDto messageDto = new MessageWithImageDto();
+    private MessageWithImageDto messageDto = new MessageWithImageDto { message = null, Image = "" };
     protected override async Task OnInitializedAsync()
     {
         // Initialize the ChatBox class by injecting the MessageService
@@ -136,6 +136,6 @@
 
         // Reload messages after sending a new message
         await LoadMessages();
-        NewMessage = new Message { Sender = "", MessageText = "" };
+        NewMessage = new Message { Sender = "", MessageText = "", ImagePath = "" };
     }
 }
