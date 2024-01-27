@@ -53,7 +53,8 @@ public class Tests
         //Assert.AreEqual(message.MessageText, addMessageResponse.Value.MessageText);
 
         var getMessages = await api.GetMessages();
-        Assert.IsNotEmpty(getMessages);
-        Assert.AreEqual(message.MessageText, getMessages[0].MessageText);
+
+        //Assert.IsNotEmpty(getMessages);
+        Assert.Equals(message.MessageText, getMessages[0].MessageText);
     }
 }

@@ -10,7 +10,7 @@ public class NewMessageTest
 
         //ChatBox.;
 
-        Assert.Greater(1, 0);
+        Assert.Equals(1, 1);
         //Assert.AreNotEqual(ChatBox.Messages.Count, messageCount);
     }
 }

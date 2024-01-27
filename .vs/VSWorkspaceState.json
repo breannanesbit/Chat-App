@@ -2,11 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\web",
-    "\\web\\ChatAppAPI",
     "\\web\\ChatAppAPI\\Controllers",
     "\\web\\ChatAppWeb",
     "\\web\\ChatAppWeb\\Pages"
   ],
-  "SelectedNode": "\\web\\ChatAppAPI\\appsettings.Development.json",
+  "SelectedNode": "\\web\\web.sln",
   "PreviewInSolutionExplorer": false
 }
