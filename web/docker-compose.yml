@@ -21,6 +21,7 @@ services:
         - ./nginx.conf:/config/nginx/site-confs/default.conf # new part
     ports:
         - 443:443 
+
   client:
     build:
       context: .
