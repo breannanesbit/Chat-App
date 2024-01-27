@@ -54,7 +54,7 @@ public class Tests
 
         var getMessages = await api.GetMessages();
 
-        //Assert.IsNotEmpty(getMessages);
+        Assert.Equals(getMessages.Count, 1);
         Assert.Equals(message.MessageText, getMessages[0].MessageText);
     }
 }
