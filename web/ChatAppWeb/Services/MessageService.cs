@@ -13,7 +13,7 @@ namespace ChatAppWeb.Services
             this.client = client;
         }
 
-        public async Task<bool> SendMessage(Message message)
+        public async Task<bool> SendMessage(MessageWithImageDto message)
         {
             var response = await client.PostAsJsonAsync("/api/messages/newMessage", message);
             if (response.IsSuccessStatusCode)

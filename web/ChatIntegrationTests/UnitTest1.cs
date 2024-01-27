@@ -42,7 +42,14 @@ public class Tests
             Timestamp = DateTime.Now,
         };
 
-        var addMessageResponse = await api.PostMessage(message);
+        var dtoMessage = new MessageWithImageDto()
+        {
+            Image = "",
+            message = message,
+        };
+
+
+        var addMessageResponse = await api.PostMessageWithImage(dtoMessage);
         //Assert.AreEqual(message.MessageText, addMessageResponse.Value.MessageText);
 
         var getMessages = await api.GetMessages();

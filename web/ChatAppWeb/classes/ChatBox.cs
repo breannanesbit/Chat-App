@@ -12,7 +12,7 @@ public class ChatBox
         this.service = service;
     }
 
-    public async Task SendMessageAsync(Message newMessage)
+    public async Task SendMessageAsync(MessageWithImageDto newMessage)
     {
         await service.SendMessage(newMessage);
     }

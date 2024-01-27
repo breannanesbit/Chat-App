@@ -88,7 +88,7 @@
         ChatBoxMessages = await chatBox.GetMessagesAsync();
 
     }
-    
+
     private async Task HandleImageUpload(InputFileChangeEventArgs e)
     {
         var file = e.File;
@@ -129,9 +129,10 @@
     private async Task SendMessage()
     {
         NewMessage.Timestamp = DateTime.Now;
+        messageDto.message = NewMessage;
 
         // Use the ChatBox class to send a message
-        await chatBox.SendMessageAsync(NewMessage);
+        await chatBox.SendMessageAsync(messageDto);
 
         // Reload messages after sending a new message
         await LoadMessages();

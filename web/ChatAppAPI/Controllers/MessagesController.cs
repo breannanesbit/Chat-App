@@ -11,13 +11,11 @@ namespace ChatAppAPI.Controllers
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly ILogger<MessagesController> _logger;
         private readonly MessageContext _context;
 
-        public MessagesController(IWebHostEnvironment webHostEnvironment, ILogger<MessagesController> logger, MessageContext context)
+        public MessagesController(ILogger<MessagesController> logger, MessageContext context)
         {
-            _webHostEnvironment = webHostEnvironment;
             _logger = logger;
             _context = context;
         }
@@ -49,7 +47,7 @@ namespace ChatAppAPI.Controllers
         }
 
         [HttpPost("newMessage")]
-        public async Task<ActionResult<Message>> PostMessageWithImage([FromForm] MessageWithImageDto messageDto)
+        public async Task<ActionResult<Message>> PostMessageWithImage([FromBody] MessageWithImageDto messageDto)
         {
             try
             {
