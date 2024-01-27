@@ -1,26 +1,26 @@
 version: "3"
 services:
+  
   swag:
     image: lscr.io/linuxserver/swag
-    container_name: swag
-    cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=America/Denver
-      - URL=chatbotba.duckdns.org
-      - SUBDOMAINS=wildcard
-      - VALIDATION=duckdns
-      - STAGING=false #optional
-    volumes:
-      - swag_data:/config
-      - ./nginx://site-conf/default.conf  
-    ports:
-      - 443:443
-      - 80:80 #optional
+    container_name: bre_aub_swag
     restart: unless-stopped
-
+    cap_add:
+        - NET_ADMIN
+    environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=America/Denver
+        - SubDomains=wildcard 
+        - URL=bre-aub-chatapp.duckdns.org
+        - VALIDATION=duckdns
+        - DUCKDNSTOKEN=${DUCKDNSTOKEN}
+        - STAGING=false
+    volumes:
+        - swag_data:/config
+        - ./nginx.conf:/config/nginx/site-confs/default.conf # new part
+    ports:
+        - 443:443 
   client:
     build:
       context: .
@@ -133,11 +133,13 @@ services:
       - STORAGE_TYPE=mem
     ports:
       - 9411:9411
+
  
 volumes:
   postgres_data:
   prometheus_data: 
   images_data:
+  swag_data:
 
 
 networks:
@@ -147,23 +149,3 @@ networks:
     driver: bridge
 
 
-  # swag:
-  #   image: lscr.io/linuxserver/swag
-  #   container_name: stratego
-  #   restart: unless-stopped
-  #   cap_add:
-  #     - NET_ADMIN
-  #   environment:
-  #     - PUID=1000
-  #     - PGID=1000
-  #     - TZ=America/Denver
-  #       SubDomains=widlcard 
-  #     - URL=stratego2023.duckdns.org
-  #     - VALIDATION=duckdns
-  #     - DUCKDNSTOKEN=${DUCKDNSTOKEN}
-  #     - STAGING=false
-  #   volumes:
-  #     - swag_data:/config
-  #     - ./nginx.conf:/config/nginx/site-confs/default.conf # new part
-  #   ports:
-  #   - 0.0.0.0:2002:443 # note using port 443
