@@ -3,9 +3,10 @@
     "",
     "\\web",
     "\\web\\ChatAppAPI",
+    "\\web\\ChatAppAPI\\Controllers",
     "\\web\\ChatAppWeb",
-    "\\web\\Shared"
+    "\\web\\ChatAppWeb\\Pages"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\web\\ChatAppAPI\\appsettings.Development.json",
   "PreviewInSolutionExplorer": false
 }

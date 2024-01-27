@@ -1,5 +1,26 @@
 version: "3"
 services:
+  swag:
+    image: lscr.io/linuxserver/swag
+    container_name: swag
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Denver
+      - URL=chatbotba.duckdns.org
+      - SUBDOMAINS=wildcard
+      - VALIDATION=duckdns
+      - STAGING=false #optional
+    volumes:
+      - swag_data:/config
+      - ./nginx://site-conf/default.conf  
+    ports:
+      - 443:443
+      - 80:80 #optional
+    restart: unless-stopped
+
   client:
     build:
       context: .
