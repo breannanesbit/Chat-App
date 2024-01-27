@@ -15,7 +15,7 @@ services:
         - URL=bre-aub-chatapp.duckdns.org
         - VALIDATION=duckdns
         - DUCKDNSTOKEN=${DUCKDNSTOKEN}
-        - STAGING=false
+        - STAGING=true
     volumes:
         - swag_data:/config
         - ./nginx.conf:/config/nginx/site-confs/default.conf # new part
