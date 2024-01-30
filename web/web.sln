@@ -10,6 +10,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatAppWeb", "ChatAppWeb\Ch
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatUnitTests", "ChatUnitTests\ChatUnitTests.csproj", "{11E04D3A-B41A-4D3D-8610-B59EF31EFD0D}"
 	ProjectSection(ProjectDependencies) = postProject
+		{4E0DFEFB-3BB1-4641-9693-943C35EC9A47} = {4E0DFEFB-3BB1-4641-9693-943C35EC9A47}
 		{F4D44E30-E865-4700-BA36-A6566A2B3718} = {F4D44E30-E865-4700-BA36-A6566A2B3718}
 	EndProjectSection
 EndProject
@@ -27,7 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		otel-collector-config.yaml = otel-collector-config.yaml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageMircoServiceAPI", "ImageMircoServiceAPI\ImageMircoServiceAPI.csproj", "{4E0DFEFB-3BB1-4641-9693-943C35EC9A47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageMircoServiceAPI", "ImageMircoServiceAPI\ImageMircoServiceAPI.csproj", "{4E0DFEFB-3BB1-4641-9693-943C35EC9A47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

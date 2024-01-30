@@ -19,6 +19,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\ChatAppWeb\ChatAppWeb.csproj" />
+		<ProjectReference Include="..\ImageMircoServiceAPI\ImageMircoServiceAPI.csproj" />
 	</ItemGroup>
 
 </Project>
