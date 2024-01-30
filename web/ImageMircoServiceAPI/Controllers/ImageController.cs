@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ImageMircoServiceAPI.Controllers
 {
-    public class ImageController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ImageController : ControllerBase
     {
 
 

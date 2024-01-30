@@ -26,6 +26,11 @@ internal class Program
 
         Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
 
+        builder.Services.AddHttpClient<MessageContext>("ImageApi", client =>
+        {
+            client.BaseAddress = new Uri("http://0.0.0.0:4003");
+        });
+
         builder.Services.AddOpenTelemetry()
             .ConfigureResource(resource => resource.AddService(
                 serviceNamespace: "demo-namespace",

@@ -12,11 +12,13 @@ namespace ChatAppAPI.Controllers
     {
         private readonly ILogger<MessagesController> _logger;
         private readonly MessageContext _context;
+        private readonly HttpClient imageClient;
 
-        public MessagesController(ILogger<MessagesController> logger, MessageContext context)
+        public MessagesController(ILogger<MessagesController> logger, MessageContext context, HttpClient imageClient)
         {
             _logger = logger;
             _context = context;
+            this.imageClient = imageClient;
         }
 
         [HttpGet("AllMessage")]
@@ -51,7 +53,7 @@ namespace ChatAppAPI.Controllers
             try
             {
                 // Handle the uploaded image
-                var imagePath = await SaveBase64ImageToVolume(messageDto.Image);
+                var imagePath = await imageClient.PatchAsJsonAsync("api/Image/SaveImage", messageDto.Image);
 
                 // Save the message with the image path in the database
                 var message = new Message
@@ -59,7 +61,7 @@ namespace ChatAppAPI.Controllers
                     MessageText = messageDto.message.MessageText,
                     Sender = messageDto.message.Sender,
                     Timestamp = messageDto.message.Timestamp,
-                    ImagePath = imagePath
+                    ImagePath = await imagePath.Content.ReadAsStringAsync()
                 };
 
                 _context.Messages.Add(message);
@@ -77,17 +79,14 @@ namespace ChatAppAPI.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
-
-
-
-        //private async Task<string> SaveBase64ImageToVolume(string base64Image)
-        //{
-        //    var volumePath = "/app/Images";
-        //    var filePath = Path.Combine(volumePath, "uploaded_image.txt");
-        //    Directory.CreateDirectory(volumePath);
-        //    await System.IO.File.WriteAllTextAsync(filePath, base64Image);
-        //    return filePath;
-        //}
-
     }
 }
+
+//private async Task<string> SaveBase64ImageToVolume(string base64Image)
+//{
+//    var volumePath = "/app/Images";
+//    var filePath = Path.Combine(volumePath, "uploaded_image.txt");
+//    Directory.CreateDirectory(volumePath);
+//    await System.IO.File.WriteAllTextAsync(filePath, base64Image);
+//    return filePath;
+//}

@@ -1,0 +1,26 @@
+name: Image API Deployment Workflow
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy-image-api:
+    runs-on: self-hosted
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 8.0.x
+          include-prerelease: true
+
+      - name: Redeploy Image API
+        run: |
+          cd web
+          docker compose pull image_api
+          docker compose build --no-cache image_api
+          docker compose down image_api
+          docker compose up -d image_api
