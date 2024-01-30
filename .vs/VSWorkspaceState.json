@@ -2,10 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\web",
+    "\\web\\ChatAppAPI",
     "\\web\\ChatAppAPI\\Controllers",
     "\\web\\ChatAppWeb",
-    "\\web\\ChatAppWeb\\Pages"
+    "\\web\\ChatAppWeb\\Pages",
+    "\\web\\ChatAppWeb\\Services"
   ],
-  "SelectedNode": "\\web\\web.sln",
+  "SelectedNode": "\\web\\docker-compose.yml",
   "PreviewInSolutionExplorer": false
 }
