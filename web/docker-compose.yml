@@ -37,14 +37,25 @@ services:
       dockerfile: ./ChatAppAPI/Dockerfile
     container_name: bre_aubrey_api
     restart: unless-stopped
-    environment:
-      - IMAGE_COMPRESSION_ENABLED=true
     ports: 
         - 4002:4002
     labels:
     - "prometheus.io/scrape=true"
     - "prometheus.io/path=/metrics"
     - "prometheus.io/port=4002"
+    networks:
+      - database_network
+
+  image-api: 
+    build:
+      context: .
+      dockerfile: ./ImageMircoServiceAPI/Dockerfile
+    container_name: bre_aubrey_image_api
+    restart: unless-stopped
+    environment:
+      - IMAGE_COMPRESSION_ENABLED=true
+    ports: 
+        - 4003:4003
     volumes:
       - images_data:/app/Images
     networks:
