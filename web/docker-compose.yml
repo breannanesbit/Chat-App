@@ -54,6 +54,7 @@ services:
     restart: unless-stopped
     environment:
       - IMAGE_COMPRESSION_ENABLED=true
+      - TIME_INTERVAL=1000
     ports: 
         - 4003:4003
     volumes:
