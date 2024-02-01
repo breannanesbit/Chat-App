@@ -18,18 +18,25 @@ internal class Program
 
         // Add services to the container.
 
-        builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        // MessageContext registration
         builder.Services.AddDbContext<MessageContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
-
+        // HttpClient registration
         builder.Services.AddHttpClient<MessageContext>("ImageApi", client =>
         {
             client.BaseAddress = new Uri("http://0.0.0.0:4003");
         });
+
+        // Controller registration
+        builder.Services.AddControllers();
+        builder.Services.AddScoped<MessageContext>();
+
+
+        // ... other registrations
+
 
         builder.Services.AddOpenTelemetry()
             .ConfigureResource(resource => resource.AddService(
@@ -59,6 +66,7 @@ internal class Program
         builder.Host.UseSerilog((context, loggerConfig) =>
         {
             loggerConfig.WriteTo.Console()
+            .Enrich.WithProperty("job", "your-api-job")
             .Enrich.WithExceptionDetails()
             .WriteTo.LokiHttp("http://loki:3100");
 
