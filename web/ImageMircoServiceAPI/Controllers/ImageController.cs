@@ -1,13 +1,12 @@
 ﻿using ImageMagick;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ImageMircoServiceAPI.Controllers
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ImageController : ControllerBase
-    {
+namespace ImageMircoServiceAPI.Controllers;
 
+[Route("api/[controller]")]
+[ApiController]
+public class ImageController : ControllerBase
+{
 
         [HttpPost("SaveImage")]
         public async Task<string> SaveBase64ImageToVolume(string base64Image)
