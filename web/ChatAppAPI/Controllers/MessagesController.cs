@@ -22,28 +22,39 @@ namespace ChatAppAPI.Controllers
         }
 
         [HttpGet("AllMessage")]
-        public async Task<List<Message>> GetMessages()
+        public async Task<List<MessageWithImageDto>> GetMessages()
         {
             _logger.LogInformation("Getting messages in API at {time}", DateTime.Now);
             try
             {
+                List<MessageWithImageDto> imageDtosList = new();
                 var response = await _context.Messages.ToListAsync();
                 if (response != null)
                 {
                     Metrics.SuccessCalls.Add(1);
-                    return response;
+                    foreach (var m in response)
+                    {
+                        var image = await imageClient.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
+                        var dto = new MessageWithImageDto
+                        {
+                            message = m,
+                            Image = image,
+                        };
+                        imageDtosList.Add(dto);
+                    }
+                    return imageDtosList;
                 }
                 else
                 {
                     _logger.LogInformation("nothing in Messages");
-                    return new List<Message>();
+                    return new List<MessageWithImageDto>();
                 }
             }
             catch (Exception ex)
             {
                 Metrics.FailedCalls.Add(1);
                 _logger.LogWarning($"{ex.Message} failed to get messages");
-                return new List<Message>();
+                return new List<MessageWithImageDto>();
             }
         }
 
@@ -53,7 +64,7 @@ namespace ChatAppAPI.Controllers
             try
             {
                 // Handle the uploaded image
-                var imagePath = await imageClient.PatchAsJsonAsync("api/Image/SaveImage", messageDto.Image);
+                var imagePath = await imageClient.PostAsJsonAsync("api/Image/SaveImage", messageDto.Image);
 
                 // Save the message with the image path in the database
                 var message = new Message
@@ -74,9 +85,10 @@ namespace ChatAppAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("Can't send messages with image in API at {time}", DateTime.Now);
+                _logger.LogError($"{ex.Message}");
                 Metrics.FailedCalls.Add(1);
                 Metrics.ApiCalls.Add(1);
-                return StatusCode(500, "Internal server error");
+                return StatusCode(500, $"{ex.Message}");
             }
         }
     }
