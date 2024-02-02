@@ -64,8 +64,9 @@ namespace ChatAppAPI.Controllers
             try
             {
                 // Handle the uploaded image
+                _logger.LogInformation(messageDto.Image);
                 var imagePath = await imageClient.PostAsJsonAsync("api/Image/SaveImage", messageDto.Image);
-
+                _logger.LogInformation(await imagePath.Content.ReadAsStringAsync());
                 // Save the message with the image path in the database
                 var message = new Message
                 {

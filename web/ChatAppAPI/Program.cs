@@ -25,7 +25,7 @@ internal class Program
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
         // HttpClient registration
-        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:4003") });
+        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://image-api:4003") });
 
 
         // Controller registration
