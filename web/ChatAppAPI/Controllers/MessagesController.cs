@@ -42,7 +42,7 @@ namespace ChatAppAPI.Controllers
             catch (Exception ex)
             {
                 Metrics.FailedCalls.Add(1);
-                _logger.LogInformation($"{ex.Message} failed to get messages");
+                _logger.LogWarning($"{ex.Message} failed to get messages");
                 return new List<Message>();
             }
         }

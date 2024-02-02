@@ -88,12 +88,16 @@ services:
     volumes:
       - ./grafana_datasources.yml:/etc/grafana/provisioning/datasources/ds.yaml
       - ./prometheus_datasources.yml:/etc/grafana/provisioning/datasources/prometheus.yaml
+    networks:
+      - database_network
 
 
   loki:
     image: grafana/loki:latest
     ports:
       - "3100:3100"
+    networks:
+      - database_network
 
   otel-collector:
     image: otel/opentelemetry-collector

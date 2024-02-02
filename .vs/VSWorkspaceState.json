@@ -1,13 +1,14 @@
 {
   "ExpandedNodes": [
     "",
+    "\\.github",
+    "\\.github\\workflows",
     "\\web",
-    "\\web\\ChatAppAPI",
-    "\\web\\ChatAppAPI\\Controllers",
     "\\web\\ChatAppWeb",
     "\\web\\ChatAppWeb\\Pages",
-    "\\web\\ChatAppWeb\\Services"
+    "\\web\\ImageMircoServiceAPI",
+    "\\web\\ImageMircoServiceAPI\\Controllers"
   ],
-  "SelectedNode": "\\web\\docker-compose.yml",
+  "SelectedNode": "\\web\\web.sln",
   "PreviewInSolutionExplorer": false
 }
