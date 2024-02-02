@@ -7,6 +7,12 @@ namespace ImageMircoServiceAPI.Controllers;
 [ApiController]
 public class ImageController : ControllerBase
 {
+    private readonly ILogger<ImageController> logger;
+
+    public ImageController(ILogger<ImageController> logger)
+    {
+        this.logger = logger;
+    }
 
     [HttpGet("getimage/{path}")]
     public async Task<string> GetImage(string path)
@@ -21,6 +27,7 @@ public class ImageController : ControllerBase
     [HttpPost("SaveImage")]
     public async Task<string> SaveBase64ImageToVolume(string base64Image)
     {
+        logger.LogInformation("made it to base 64");
         // Check if image compression is enabled via environment variable
         bool isCompressionEnabled = Environment.GetEnvironmentVariable("IMAGE_COMPRESSION_ENABLED") == "true";
         var intervalTime = Environment.GetEnvironmentVariable("TIME_INTERVAL");
@@ -50,7 +57,7 @@ public class ImageController : ControllerBase
         Directory.CreateDirectory(volumePath);
         await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
         Thread.Sleep(parsedIntervalTime);
-
+        logger.LogInformation($"{filePath}");
         return filePath;
     }
 }
