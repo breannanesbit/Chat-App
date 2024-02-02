@@ -1,14 +1,15 @@
 {
   "ExpandedNodes": [
     "",
-    "\\.github",
-    "\\.github\\workflows",
     "\\web",
+    "\\web\\ChatAppAPI",
+    "\\web\\ChatAppAPI\\Controllers",
     "\\web\\ChatAppWeb",
     "\\web\\ChatAppWeb\\Pages",
-    "\\web\\ImageMircoServiceAPI",
-    "\\web\\ImageMircoServiceAPI\\Controllers"
+    "\\web\\ChatAppWeb\\Services",
+    "\\web\\ChatUnitTests",
+    "\\web\\Shared"
   ],
-  "SelectedNode": "\\web\\web.sln",
+  "SelectedNode": "\\web\\Shared\\MessageWithImageDto.cs",
   "PreviewInSolutionExplorer": false
 }

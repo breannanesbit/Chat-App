@@ -11,10 +11,16 @@ public class ImageController : ControllerBase
     [HttpGet("getimage/{path}")]
     public async Task<string> GetImage(string path)
     {
+        var intervalTime = Environment.GetEnvironmentVariable("TIME_INTERVAL");
+        var parsedIntervalTime = int.Parse(intervalTime);
+
+        Thread.Sleep(parsedIntervalTime);
         var imagePath = Path.Combine("/app/Images", path);
 
         // Load image data from file
         var bytearray = await System.IO.File.ReadAllBytesAsync(imagePath);
+        Thread.Sleep(parsedIntervalTime);
+
         return Convert.ToBase64String(bytearray);
     }
 
