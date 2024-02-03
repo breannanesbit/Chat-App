@@ -4,12 +4,9 @@
     "\\web",
     "\\web\\ChatAppAPI",
     "\\web\\ChatAppAPI\\Controllers",
-    "\\web\\ChatAppWeb",
-    "\\web\\ChatAppWeb\\Pages",
-    "\\web\\ChatAppWeb\\Services",
-    "\\web\\ChatUnitTests",
-    "\\web\\Shared"
+    "\\web\\ImageMircoServiceAPI",
+    "\\web\\ImageMircoServiceAPI\\Controllers"
   ],
-  "SelectedNode": "\\web\\Shared\\MessageWithImageDto.cs",
+  "SelectedNode": "\\web\\nginx.conf",
   "PreviewInSolutionExplorer": false
 }
