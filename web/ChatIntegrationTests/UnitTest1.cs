@@ -21,7 +21,7 @@ public class Tests
             .Options;
 
         _context = new MessageContext(options);
-        api = new MessagesController(logger, _context);
+        api = new MessagesController(logger, _context, null);
     }
 
     [TearDown]
@@ -55,6 +55,6 @@ public class Tests
 
         var getMessages = await api.GetMessages();
         Assert.AreNotEqual(0, getMessages.Count);
-        Assert.AreEqual(message.MessageText, getMessages[0].MessageText);
+        Assert.AreEqual(message.MessageText, getMessages[0].message.MessageText);
     }
 }

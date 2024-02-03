@@ -1,15 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\web",
-    "\\web\\ChatAppAPI",
-    "\\web\\ChatAppAPI\\Controllers",
-    "\\web\\ChatAppWeb",
-    "\\web\\ChatAppWeb\\Pages",
-    "\\web\\ChatAppWeb\\Services",
-    "\\web\\ChatUnitTests",
-    "\\web\\Shared"
+    ""
   ],
-  "SelectedNode": "\\web\\Shared\\MessageWithImageDto.cs",
+  "SelectedNode": "\\web.sln",
   "PreviewInSolutionExplorer": false
 }
