@@ -2,11 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\web",
-    "\\web\\ChatAppAPI",
-    "\\web\\ChatAppAPI\\Controllers",
     "\\web\\ImageMircoServiceAPI",
-    "\\web\\ImageMircoServiceAPI\\Controllers"
+    "\\web\\ImageMircoServiceAPI\\Controllers",
+    "\\web\\Shared"
   ],
-  "SelectedNode": "\\web\\nginx.conf",
+  "SelectedNode": "\\web\\ImageMircoServiceAPI\\Controllers\\ImageController.cs",
   "PreviewInSolutionExplorer": false
 }
