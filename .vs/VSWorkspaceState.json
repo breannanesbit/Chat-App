@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\web",
+    "\\web\\ChatAppAPI",
+    "\\web\\ChatUnitTests",
+    "\\web\\ImageMircoServiceAPI",
+    "\\web\\ImageMircoServiceAPI\\Controllers",
+    "\\web\\Shared"
   ],
-  "SelectedNode": "\\web.sln",
+  "SelectedNode": "\\web\\web.sln",
   "PreviewInSolutionExplorer": false
 }

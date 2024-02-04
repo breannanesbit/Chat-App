@@ -7,18 +7,6 @@ namespace ChatUnitTests;
 public class ImageUnitTest
 {
  
-    private ImageController _imageController;
-    private Mock<ILogger<ImageController>> _loggerMock;
-    private Mock<ConnectionMultiplexer> _redisConnectionMock;
-
-    [SetUp]
-    public void Setup()
-    {
-        /*_loggerMock = new Mock<ILogger<ImageController>>();
-        _redisConnectionMock = new Mock<ConnectionMultiplexer>();
-        _imageController = new ImageController(_loggerMock.Object, _redisConnectionMock.Object);*/
-    }
-
     [Test]
     public async Task SaveImageTest()
     {

@@ -45,12 +45,12 @@ public class ImageController : ControllerBase
 
         return imageBase64;
     }
-}
+
 
     [HttpPost("SaveImage")]
     public async Task<string> SaveBase64ImageToVolume(string base64Image)
     {
-        logger.LogInformation("made it to base 64");
+        _logger.LogInformation("made it to base 64");
         // Check if image compression is enabled via environment variable
         bool isCompressionEnabled = Environment.GetEnvironmentVariable("IMAGE_COMPRESSION_ENABLED") == "true";
         var intervalTime = Environment.GetEnvironmentVariable("TIME_INTERVAL");
@@ -80,9 +80,8 @@ public class ImageController : ControllerBase
         Directory.CreateDirectory(volumePath);
         await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
         Thread.Sleep(parsedIntervalTime);
-        logger.LogInformation($"{filePath}");
+        _logger.LogInformation($"{filePath}");
         return filePath;
     }
 
-}
 }
