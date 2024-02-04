@@ -1,11 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\web",
-    "\\web\\ImageMircoServiceAPI",
-    "\\web\\ImageMircoServiceAPI\\Controllers",
-    "\\web\\Shared"
+    ""
   ],
-  "SelectedNode": "\\web\\ImageMircoServiceAPI\\Controllers\\ImageController.cs",
+  "SelectedNode": "\\web.sln",
   "PreviewInSolutionExplorer": false
 }

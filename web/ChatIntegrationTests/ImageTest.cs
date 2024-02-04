@@ -3,11 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Shared;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChatIntegrationTests;
 
@@ -26,7 +21,7 @@ public class ImageTest
             .Options;
 
         _context = new MessageContext(options);
-        api = new MessagesController(logger, _context);
+        api = new MessagesController(logger, _context, null);
     }
 
     [TearDown]
@@ -60,6 +55,6 @@ public class ImageTest
 
         var getMessages = await api.GetMessages();
         Assert.AreNotEqual(0, getMessages.Count);
-        Assert.AreEqual(message.MessageText, getMessages[0].MessageText);
+        Assert.AreEqual(message.MessageText, getMessages[0].message.MessageText);
     }
 }

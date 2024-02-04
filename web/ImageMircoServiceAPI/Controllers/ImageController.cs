@@ -43,19 +43,20 @@ public class ImageController : ControllerBase
             // Cache the image data in Redis with a key as the image path
             redisClient.Set(path, imageBase64);
 
-            return imageBase64;
-        }
-
+        return imageBase64;
+    }
+}
 
     [HttpPost("SaveImage")]
     public async Task<string> SaveBase64ImageToVolume(string base64Image)
     {
-        _logger.LogInformation("made it to base 64");
+        logger.LogInformation("made it to base 64");
         // Check if image compression is enabled via environment variable
         bool isCompressionEnabled = Environment.GetEnvironmentVariable("IMAGE_COMPRESSION_ENABLED") == "true";
         var intervalTime = Environment.GetEnvironmentVariable("TIME_INTERVAL");
         var parsedIntervalTime = int.Parse(intervalTime);
         Thread.Sleep(parsedIntervalTime);
+    Thread.Sleep(parsedIntervalTime);
 
 
         // Convert base64 string to byte array
@@ -73,15 +74,15 @@ public class ImageController : ControllerBase
                 imageBytes = image.ToByteArray();
             }
         }
-
         // Save the byte array to a file
         var volumePath = "/app/Images";
         var filePath = Path.Combine(volumePath, "uploaded_image.txt");
         Directory.CreateDirectory(volumePath);
         await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
         Thread.Sleep(parsedIntervalTime);
-        _logger.LogInformation($"{filePath}");
+        logger.LogInformation($"{filePath}");
         return filePath;
     }
 
+}
 }
