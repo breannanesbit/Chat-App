@@ -151,6 +151,12 @@ services:
     ports:
       - 9411:9411
 
+  redis:
+    image: redis
+    container_name: my-redis-container
+    ports:
+      - "6379:6379"
+
  
 volumes:
   postgres_data:
