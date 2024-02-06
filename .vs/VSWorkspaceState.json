@@ -2,12 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\web",
-    "\\web\\ChatAppAPI",
-    "\\web\\ChatUnitTests",
-    "\\web\\ImageMircoServiceAPI",
-    "\\web\\ImageMircoServiceAPI\\Controllers",
-    "\\web\\Shared"
+    "\\web\\ChatAppAPI"
   ],
-  "SelectedNode": "\\web\\web.sln",
+  "SelectedNode": "\\web\\docker-compose.yml",
   "PreviewInSolutionExplorer": false
 }
