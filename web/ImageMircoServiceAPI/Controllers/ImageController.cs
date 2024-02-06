@@ -1,5 +1,6 @@
 ﻿using ImageMagick;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 using StackExchange.Redis;
 
 namespace ImageMircoServiceAPI.Controllers;
@@ -12,51 +13,52 @@ public class ImageController : ControllerBase
     private readonly ConnectionMultiplexer redisConnection;
     private readonly RedisClient redisClient;
 
-     public ImageController(ILogger<ImageController> logger, ConnectionMultiplexer redisConnection)
+    public ImageController(ILogger<ImageController> logger, ConnectionMultiplexer redisConnection)
+    {
+        _logger = logger;
+        this.redisConnection = redisConnection;
+        this.redisClient = new RedisClient(redisConnection);
+    }
+
+    [HttpGet("getimage/{path}")]
+    public async Task<string> GetImage(string path)
+    {
+        var cachedImageBase64 = redisClient.Get<string>(path);
+
+        if (cachedImageBase64 != null)
         {
-            _logger = logger;
-            this.redisConnection = redisConnection;
-            this.redisClient = new RedisClient(redisConnection);
+            _logger.LogInformation("Image found in Redis cache");
+            return cachedImageBase64;
         }
 
-        [HttpGet("getimage/{path}")]
-        public async Task<string> GetImage(string path)
-        {
-            var cachedImageBase64 = redisClient.Get<string>(path);
+        var intervalTime = Environment.GetEnvironmentVariable("TIME_INTERVAL");
+        var parsedIntervalTime = int.Parse(intervalTime);
 
-            if (cachedImageBase64 != null)
-            {
-                _logger.LogInformation("Image found in Redis cache");
-                return cachedImageBase64;
-            }
+        Thread.Sleep(parsedIntervalTime);
+        var imagePath = Path.Combine("/app/Images", path);
 
-            var intervalTime = Environment.GetEnvironmentVariable("TIME_INTERVAL");
-            var parsedIntervalTime = int.Parse(intervalTime);
+        // Load image data from file
+        var byteArray = await System.IO.File.ReadAllBytesAsync(imagePath);
+        var imageBase64 = Convert.ToBase64String(byteArray);
 
-            Thread.Sleep(parsedIntervalTime);
-            var imagePath = Path.Combine("/app/Images", path);
-
-            // Load image data from file
-            var byteArray = await System.IO.File.ReadAllBytesAsync(imagePath);
-            var imageBase64 = Convert.ToBase64String(byteArray);
-
-            // Cache the image data in Redis with a key as the image path
-            redisClient.Set(path, imageBase64);
+        // Cache the image data in Redis with a key as the image path
+        redisClient.Set(path, imageBase64);
 
         return imageBase64;
     }
 
 
     [HttpPost("SaveImage")]
-    public async Task<string> SaveBase64ImageToVolume(string base64Image)
+    public async Task<Container_path> SaveBase64ImageToVolume(string base64Image)
     {
         _logger.LogInformation("made it to base 64");
         // Check if image compression is enabled via environment variable
         bool isCompressionEnabled = Environment.GetEnvironmentVariable("IMAGE_COMPRESSION_ENABLED") == "true";
         var intervalTime = Environment.GetEnvironmentVariable("TIME_INTERVAL");
+        var container = Environment.GetEnvironmentVariable("OTHER_CONTAINER");
+        string current_container;
         var parsedIntervalTime = int.Parse(intervalTime);
         Thread.Sleep(parsedIntervalTime);
-    Thread.Sleep(parsedIntervalTime);
 
 
         // Convert base64 string to byte array
@@ -81,7 +83,23 @@ public class ImageController : ControllerBase
         await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
         Thread.Sleep(parsedIntervalTime);
         _logger.LogInformation($"{filePath}");
-        return filePath;
+
+        if (container.Contains("1"))
+        {
+            current_container = "1";
+        }
+        else
+        {
+            current_container = "2";
+        }
+
+        var containerAndPath = new Container_path()
+        {
+            Container = container,
+            FilePath = filePath,
+        };
+
+        return containerAndPath;
     }
 
 }

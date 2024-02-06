@@ -12,13 +12,13 @@ namespace ChatAppAPI.Controllers
     {
         private readonly ILogger<MessagesController> _logger;
         private readonly MessageContext _context;
-        private readonly HttpClient imageClient;
+        private readonly IHttpClientFactory imageClientFactory;
 
-        public MessagesController(ILogger<MessagesController> logger, MessageContext context, HttpClient imageClient)
+        public MessagesController(ILogger<MessagesController> logger, MessageContext context, IHttpClientFactory imageClientFactory)
         {
             _logger = logger;
             _context = context;
-            this.imageClient = imageClient;
+            this.imageClientFactory = imageClientFactory;
         }
 
         [HttpGet("AllMessage")]
@@ -34,7 +34,18 @@ namespace ChatAppAPI.Controllers
                     Metrics.SuccessCalls.Add(1);
                     foreach (var m in response)
                     {
-                        var image = await imageClient.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
+                        string image = "";
+                        if (m.ContainerLocationId == 1)
+                        {
+                            var imageClient = imageClientFactory.CreateClient("ImageApi1");
+                            image = await imageClient.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
+                        }
+                        else
+                        {
+                            var imageClient = imageClientFactory.CreateClient("ImageApi2");
+                            image = await imageClient.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
+                        }
+
                         var dto = new MessageWithImageDto
                         {
                             message = m,
@@ -66,14 +77,19 @@ namespace ChatAppAPI.Controllers
                 // Handle the uploaded image
                 _logger.LogInformation(messageDto.Image);
                 var imagePath = await imageClient.PostAsJsonAsync("api/Image/SaveImage", messageDto.Image);
-                _logger.LogInformation(await imagePath.Content.ReadAsStringAsync());
+                var containerPath = await imagePath.Content.ReadFromJsonAsync<Container_path>();
+                _logger.LogInformation(containerPath.ToString());
+
+                var parsedContainerId = int.Parse(containerPath.Container);
+
                 // Save the message with the image path in the database
                 var message = new Message
                 {
                     MessageText = messageDto.message.MessageText,
                     Sender = messageDto.message.Sender,
                     Timestamp = messageDto.message.Timestamp,
-                    ImagePath = await imagePath.Content.ReadAsStringAsync()
+                    ImagePath = containerPath.FilePath,
+                    ContainerLocationId = parsedContainerId
                 };
 
                 _context.Messages.Add(message);
