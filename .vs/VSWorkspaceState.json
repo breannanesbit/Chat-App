@@ -4,6 +4,6 @@
     "\\web",
     "\\web\\ChatAppAPI"
   ],
-  "SelectedNode": "\\web\\docker-compose.yml",
+  "SelectedNode": "\\web\\ChatAppAPI\\appsettings.json",
   "PreviewInSolutionExplorer": false
 }

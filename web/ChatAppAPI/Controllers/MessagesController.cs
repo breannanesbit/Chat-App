@@ -76,6 +76,19 @@ namespace ChatAppAPI.Controllers
             {
                 // Handle the uploaded image
                 _logger.LogInformation(messageDto.Image);
+                Random random = new Random();
+                int randomNum = random.Next(1, 3);
+                HttpClient imageClient;
+
+                if (randomNum == 1)
+                {
+                     imageClient = imageClientFactory.CreateClient("ImageApi1");
+                }
+                else
+                {
+                     imageClient = imageClientFactory.CreateClient("ImageApi2");
+                }
+
                 var imagePath = await imageClient.PostAsJsonAsync("api/Image/SaveImage", messageDto.Image);
                 var containerPath = await imagePath.Content.ReadFromJsonAsync<Container_path>();
                 _logger.LogInformation(containerPath.ToString());
