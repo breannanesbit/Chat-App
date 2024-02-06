@@ -46,7 +46,7 @@ services:
     networks:
       - database_network
 
-  image-api: 
+  image-api-1: 
     build:
       context: .
       dockerfile: ./ImageMircoServiceAPI/Dockerfile
@@ -55,6 +55,26 @@ services:
     environment:
       - IMAGE_COMPRESSION_ENABLED=true
       - TIME_INTERVAL=1000
+      - OTHER_CONTAINER=image-api-2
+
+    ports: 
+        - 4003:4003
+    volumes:
+      - images_data:/app/Images
+    networks:
+      - database_network
+
+
+  image-api-2: 
+    build:
+      context: .
+      dockerfile: ./ImageMircoServiceAPI/Dockerfile
+    container_name: bre_aubrey_image_api_2
+    restart: unless-stopped
+    environment:
+      - IMAGE_COMPRESSION_ENABLED=true
+      - TIME_INTERVAL=1000
+      - OTHER_CONTAINER=image-api-1
     ports: 
         - 4003:4003
     volumes:
