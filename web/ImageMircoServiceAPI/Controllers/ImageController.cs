@@ -86,11 +86,11 @@ public class ImageController : ControllerBase
 
         if (container.Contains("1"))
         {
-            current_container = "1";
+            current_container = "2";
         }
         else
         {
-            current_container = "2";
+            current_container = "1";
         }
 
         var containerAndPath = new Container_path()
