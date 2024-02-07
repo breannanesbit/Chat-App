@@ -76,9 +76,8 @@ namespace ChatAppAPI.Controllers
             {
                 // Handle the uploaded image
                 _logger.LogInformation(messageDto.Image);
-                var _apiImageClient = imageClientFactory.CreateClient("apiImage");
-
-                var imagePath = await _apiImageClient.PostAsJsonAsync("SaveImage", messageDto.Image);
+                var imageClient = imageClientFactory.CreateClient("apiImage");
+                var imagePath = await imageClient.PostAsJsonAsync("SaveImage", messageDto.Image);
                 var containerPath = await imagePath.Content.ReadFromJsonAsync<Container_path>();
                 _logger.LogInformation(containerPath.ToString());
 
