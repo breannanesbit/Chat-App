@@ -35,6 +35,10 @@ internal class Program
             client.BaseAddress = new Uri("http://image-api-2:4003");
         });
 
+        builder.Services.AddHttpClient("apiImage", client =>
+        {
+            client.BaseAddress = new Uri("http://api/image");
+        });
         // Controller registration
         builder.Services.AddControllers();
         builder.Services.AddScoped<MessageContext>();

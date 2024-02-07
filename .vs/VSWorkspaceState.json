@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\web",
-    "\\web\\ChatAppAPI"
+    "\\web\\ChatAppAPI",
+    "\\web\\ChatAppAPI\\Controllers",
+    "\\web\\ImageMircoServiceAPI",
+    "\\web\\ImageMircoServiceAPI\\Controllers"
   ],
-  "SelectedNode": "\\web\\ChatAppAPI\\appsettings.json",
   "PreviewInSolutionExplorer": false
 }

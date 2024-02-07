@@ -13,12 +13,14 @@ namespace ChatAppAPI.Controllers
         private readonly ILogger<MessagesController> _logger;
         private readonly MessageContext _context;
         private readonly IHttpClientFactory imageClientFactory;
+        private readonly HttpClient _apiImageClient;
 
-        public MessagesController(ILogger<MessagesController> logger, MessageContext context, IHttpClientFactory imageClientFactory)
+        public MessagesController(ILogger<MessagesController> logger, MessageContext context, IHttpClientFactory imageClientFactory, HttpClient apiImageClient)
         {
             _logger = logger;
             _context = context;
             this.imageClientFactory = imageClientFactory;
+            _apiImageClient = apiImageClient;
         }
 
         [HttpGet("AllMessage")]
@@ -76,20 +78,8 @@ namespace ChatAppAPI.Controllers
             {
                 // Handle the uploaded image
                 _logger.LogInformation(messageDto.Image);
-                Random random = new Random();
-                int randomNum = random.Next(1, 3);
-                HttpClient imageClient;
-
-                if (randomNum == 1)
-                {
-                     imageClient = imageClientFactory.CreateClient("ImageApi1");
-                }
-                else
-                {
-                     imageClient = imageClientFactory.CreateClient("ImageApi2");
-                }
-
-                var imagePath = await imageClient.PostAsJsonAsync("api/Image/SaveImage", messageDto.Image);
+               
+                var imagePath = await _apiImageClient.PostAsJsonAsync("SaveImage", messageDto.Image);
                 var containerPath = await imagePath.Content.ReadFromJsonAsync<Container_path>();
                 _logger.LogInformation(containerPath.ToString());
 
