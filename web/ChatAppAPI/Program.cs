@@ -37,7 +37,7 @@ internal class Program
 
         builder.Services.AddHttpClient("apiImage", client =>
         {
-            client.BaseAddress = new Uri("http://api/image");
+            client.BaseAddress = new Uri("http://client.bre-aub-chatapp.duckdns.org/api/image");
         });
         // Controller registration
         builder.Services.AddControllers();
