@@ -76,7 +76,24 @@ services:
       - TIME_INTERVAL=1000
       - OTHER_CONTAINER=image-api-1
     ports: 
-        - 4003:4003
+        - 4006:4003
+    volumes:
+      - images_data:/app/Images
+    networks:
+      - database_network
+
+  image-api-3: 
+    build:
+      context: .
+      dockerfile: ./ImageMircoServiceAPI/Dockerfile
+    container_name: bre_aubrey_image_api_3
+    restart: unless-stopped
+    environment:
+      - IMAGE_COMPRESSION_ENABLED=true
+      - TIME_INTERVAL=1000
+      - OTHER_CONTAINER=image-api-1
+    ports: 
+        - 4007:4003
     volumes:
       - images_data:/app/Images
     networks:
