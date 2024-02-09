@@ -7,6 +7,7 @@ using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.Loki;
 using Shared;
+using Shared.Data;
 using System.Reflection;
 
 internal class Program

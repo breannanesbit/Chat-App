@@ -1,5 +1,6 @@
 ﻿
 using Shared;
+using Shared.Data;
 using System.Net.Http.Json;
 
 namespace ChatAppWeb.Services

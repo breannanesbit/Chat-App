@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using Shared;
+using Shared.Data;
 
 namespace ChatIntegrationTests;
 
@@ -34,7 +35,7 @@ public class ImageTest
     [Test]
     public async Task TestAddAndGetMessageWithImageAsync()
     {
-        var message = new Shared.Message()
+        var message = new Shared.Data.Message()
         {
             Id = 0,
             Sender = "Toby Tester",

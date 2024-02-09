@@ -1,6 +1,7 @@
 using ImageMircoServiceAPI;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.Data;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,5 +1,6 @@
 ﻿using ChatAppWeb.Services;
 using Shared;
+using Shared.Data;
 
 namespace ChatAppWeb.classes;
 

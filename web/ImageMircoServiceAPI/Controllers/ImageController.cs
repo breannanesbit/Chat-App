@@ -1,6 +1,7 @@
 ﻿using ImageMagick;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
+using Shared.Data;
 using StackExchange.Redis;
 
 namespace ImageMircoServiceAPI.Controllers;
@@ -54,7 +55,8 @@ public class ImageController : ControllerBase
             var imageInDatabase = context.Messages.Where((m) => m.ImagePath == path).FirstOrDefault();
             if (imageInDatabase != null)
             {
-                switch (imageInDatabase.ContainerLocationId)
+                var containerId = imageInDatabase.MessageContainerLocations.FirstOrDefault();
+                switch (containerId.ContainerLocationId)
                 {
                     case 1:
                         var imageClient = imageClientFactory.CreateClient("ImageApi1");
