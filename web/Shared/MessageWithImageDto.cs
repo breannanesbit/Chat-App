@@ -1,4 +1,6 @@
-﻿namespace Shared
+﻿using Shared.Data;
+
+namespace Shared
 {
     public class MessageWithImageDto
     {

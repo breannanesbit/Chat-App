@@ -11,40 +11,70 @@ public class ImageController : ControllerBase
 {
     private readonly ILogger<ImageController> _logger;
     private readonly ConnectionMultiplexer redisConnection;
+    private readonly MessageContext context;
+    private readonly IHttpClientFactory imageClientFactory;
     private readonly RedisClient redisClient;
 
-    public ImageController(ILogger<ImageController> logger, ConnectionMultiplexer redisConnection)
+    public ImageController(ILogger<ImageController> logger, ConnectionMultiplexer redisConnection, MessageContext _context, IHttpClientFactory imageClientFactory)
     {
         _logger = logger;
         this.redisConnection = redisConnection;
+        context = _context;
+        this.imageClientFactory = imageClientFactory;
         this.redisClient = new RedisClient(redisConnection);
     }
 
     [HttpGet("getimage/{path}")]
-    public async Task<string> GetImage(string path)
+    public async Task<IActionResult> GetImage(string path)
     {
         var cachedImageBase64 = redisClient.Get<string>(path);
 
         if (cachedImageBase64 != null)
         {
             _logger.LogInformation("Image found in Redis cache");
-            return cachedImageBase64;
+            return Ok(cachedImageBase64);
         }
 
         var intervalTime = Environment.GetEnvironmentVariable("TIME_INTERVAL");
         var parsedIntervalTime = int.Parse(intervalTime);
 
-        Thread.Sleep(parsedIntervalTime);
-        var imagePath = Path.Combine("/app/Images", path);
+        //var imagePath = Path.Combine("/app/Images", path);
+        if (System.IO.File.Exists(path))
+        {
+            var byteArray = await System.IO.File.ReadAllBytesAsync(path);
+            var imageBase64 = Convert.ToBase64String(byteArray);
 
-        // Load image data from file
-        var byteArray = await System.IO.File.ReadAllBytesAsync(imagePath);
-        var imageBase64 = Convert.ToBase64String(byteArray);
+            // Cache the image data in Redis with a key as the image path
+            redisClient.Set(path, imageBase64);
 
-        // Cache the image data in Redis with a key as the image path
-        redisClient.Set(path, imageBase64);
+            return Ok(imageBase64);
+        }
+        else
+        {
+            var imageInDatabase = context.Messages.Where((m) => m.ImagePath == path).FirstOrDefault();
+            if (imageInDatabase != null)
+            {
+                switch (imageInDatabase.ContainerLocationId)
+                {
+                    case 1:
+                        var imageClient = imageClientFactory.CreateClient("ImageApi1");
+                        var image = await imageClient.GetFromJsonAsync<string>($"api/Image/getimage/{path}");
+                        return Ok(image);
+                    case 2:
+                        var imageClient2 = imageClientFactory.CreateClient("ImageApi2");
+                        var image1 = await imageClient2.GetFromJsonAsync<string>($"api/Image/getimage/{path}");
+                        return Ok(image1);
+                    case 3:
+                        var imageClient3 = imageClientFactory.CreateClient("ImageApi3");
+                        var image3 = await imageClient3.GetFromJsonAsync<string>($"api/Image/getimage/{path}");
+                        return Ok(image3);
 
-        return imageBase64;
+                }
+            }
+            return BadRequest();
+
+        }
+
     }
 
 
@@ -83,6 +113,8 @@ public class ImageController : ControllerBase
         await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
         Thread.Sleep(parsedIntervalTime);
         _logger.LogInformation($"{filePath}");
+
+
 
         if (container.Contains("1"))
         {

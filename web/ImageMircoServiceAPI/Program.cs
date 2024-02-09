@@ -1,4 +1,6 @@
 using ImageMircoServiceAPI;
+using Microsoft.EntityFrameworkCore;
+using Shared;
 using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,9 +12,34 @@ var connectionMultiplexer = ConnectionMultiplexer.Connect(redisConfiguration);
 
 builder.Services.AddSingleton(connectionMultiplexer);
 
+builder.Services.AddDbContext<MessageContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 builder.Services.AddSingleton<RedisClient>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddHttpClient("ImageApi1", client =>
+{
+    client.BaseAddress = new Uri("http://image-api-1:4003");
+});
+
+builder.Services.AddHttpClient("ImageApi2", client =>
+{
+    client.BaseAddress = new Uri("http://image-api-2:4003");
+});
+
+builder.Services.AddHttpClient("ImageApi3", client =>
+{
+    client.BaseAddress = new Uri("http://image-api-3:4003");
+});
+
+builder.Services.AddHttpClient("apiImage", client =>
+{
+    client.BaseAddress = new Uri("http://client.bre-aub-chatapp.duckdns.org/api/image");
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

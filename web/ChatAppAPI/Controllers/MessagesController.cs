@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.Data;
 
 //api needs to have a depencey injection of the other api http client 
 
@@ -28,14 +29,15 @@ namespace ChatAppAPI.Controllers
             try
             {
                 List<MessageWithImageDto> imageDtosList = new();
-                var response = await _context.Messages.ToListAsync();
+                var response = await _context.Messages.Include((m) => m.MessageContainerLocations).ToListAsync();
                 if (response != null)
                 {
                     Metrics.SuccessCalls.Add(1);
                     foreach (var m in response)
                     {
                         string image = "";
-                        if (m.ContainerLocationId == 1)
+                        //fix here
+                        if (m.MessageContainerLocations.Count == 1)
                         {
                             var imageClient = imageClientFactory.CreateClient("ImageApi1");
                             image = await imageClient.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
@@ -90,7 +92,6 @@ namespace ChatAppAPI.Controllers
                     Sender = messageDto.message.Sender,
                     Timestamp = messageDto.message.Timestamp,
                     ImagePath = containerPath.FilePath,
-                    ContainerLocationId = parsedContainerId
                 };
 
                 _context.Messages.Add(message);
