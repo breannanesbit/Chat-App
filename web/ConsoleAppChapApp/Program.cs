@@ -87,6 +87,7 @@ class Program
                             ContainerLocationId = cId,
                         };
                         message.MessageContainerLocations.Add(newContainerLocation);
+                        await dbContext.SaveChangesAsync();
                         logger.LogInformation("Console: Added new Container Location");
 
                     }
