@@ -35,6 +35,9 @@ services:
     build:
       context: .
       dockerfile: ./ConsoleAppChapApp/Dockerfile
+    networks:
+      - database_network
+
   api: 
     build:
       context: .
@@ -59,7 +62,6 @@ services:
       - IMAGE_COMPRESSION_ENABLED=true
       - TIME_INTERVAL=1000
       - OTHER_CONTAINER=image-api-2
-
     ports: 
         - 4003:4003
     volumes:

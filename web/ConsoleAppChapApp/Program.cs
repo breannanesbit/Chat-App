@@ -1,14 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Shared;
 using Shared.Data;
 using System.Net.Http.Json;
-using static System.Net.WebRequestMethods;
 class Program
 {
     static async Task Main(string[] args)
     {
+        IConfiguration configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            .Build();
+
         using var dbContext = new MessageContext(new DbContextOptionsBuilder<MessageContext>()
-            .UseNpgsql("ConnectionStrings:DefaultConnection")
+            .UseNpgsql(configuration.GetConnectionString("DefaultConnection"))
             .Options);
         int sleepInterval = GetSleepInterval();
 
@@ -17,37 +22,45 @@ class Program
             var files = dbContext.Messages.Where(message => dbContext.MessageContainerLocations
                     .Count(location => location.MessageId == message.Id) == 1 && !string.IsNullOrEmpty(message.ImagePath)).ToList();
 
-            //for each instance file, select an image api instance to store a redudnatn copy (at random)
-            foreach (var message in files)
+            if (files != null)
             {
-                var containerId = message.MessageContainerLocations.First().ContainerLocationId;
-                var baseUri = $"http://image-api-{containerId}:4003/api/Image/getimage/{message.ImagePath}";
-                using var httpClient = new HttpClient();
-                try
+                foreach (var message in files)
                 {
-                    var image = await httpClient.GetFromJsonAsync<string>(baseUri);
-                    var imageBytes = Convert.FromBase64String(image);
-                    var response = await StoreCopy(imageBytes, containerId);
-                    //update containers list
-                    if(int.TryParse(response.Container,out int cId))
-                    { }
-                    var newContainerLocation = new MessageContainerLocation
+                    var containerId = message.MessageContainerLocations.First().ContainerLocationId;
+                    var baseUri = $"http://image-api-{containerId}:4003/api/Image/getimage/{message.ImagePath}";
+                    using var httpClient = new HttpClient();
+                    try
                     {
-                        ContainerLocationId = cId,
-                    };
-                    message.MessageContainerLocations.Add(newContainerLocation);
+                        var image = await httpClient.GetFromJsonAsync<string>(baseUri);
+                        var imageBytes = Convert.FromBase64String(image);
+                        var response = await StoreCopy(imageBytes, containerId);
+                        //update containers list
+                        if (int.TryParse(response.Container, out int cId))
+                        { }
+                        var newContainerLocation = new MessageContainerLocation
+                        {
+                            ContainerLocationId = cId,
+                        };
+                        message.MessageContainerLocations.Add(newContainerLocation);
+                    }
+                    catch (Exception ex) { }
                 }
-                catch(Exception ex) { }
+                //sleep for an interval of time (env) 5 seconds for dev, 30 prod
+                Thread.Sleep(TimeSpan.FromSeconds(sleepInterval));
+
             }
-            //sleep for an interval of time (env) 5 seconds for dev, 30 prod
-            Thread.Sleep(TimeSpan.FromSeconds(sleepInterval));
+            else
+            {
+                break;
+            }
+            //for each instance file, select an image api instance to store a redudnatn copy (at random)
         }
     }
 
     static int GetSleepInterval()
     {
         bool isProduction = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Production";
-        int sleepIntervalSeconds = isProduction ? 30 : 5; 
+        int sleepIntervalSeconds = isProduction ? 30 : 5;
         return sleepIntervalSeconds;
     }
 
