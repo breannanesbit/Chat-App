@@ -30,7 +30,11 @@ services:
     ports:
       - 4001:4001
     mem_limit: 512M
-
+  
+  console-app:
+    build:
+      context: .
+      dockerfile: ./ConsoleAppChapApp/Dockerfile
   api: 
     build:
       context: .

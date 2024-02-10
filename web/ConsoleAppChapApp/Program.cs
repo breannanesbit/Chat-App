@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 using static System.Net.WebRequestMethods;
 class Program
 {
-    static async void Main(string[] args)
+    static async Task Main(string[] args)
     {
         using var dbContext = new MessageContext(new DbContextOptionsBuilder<MessageContext>()
             .UseNpgsql("ConnectionStrings:DefaultConnection")
