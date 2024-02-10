@@ -1,12 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shared;
 using Shared.Data;
+using System.Net.Http.Json;
+using static System.Net.WebRequestMethods;
 class Program
 {
-    static void Main(string[] args)
+    static async void Main(string[] args)
     {
         using var dbContext = new MessageContext(new DbContextOptionsBuilder<MessageContext>()
-            .UseNpgsql("your_connection_string_here")
+            .UseNpgsql("ConnectionStrings:DefaultConnection")
             .Options);
+        int sleepInterval = GetSleepInterval();
 
         while (true)
         {   //check the shared database for image files that are only stored on one server.
@@ -16,11 +20,27 @@ class Program
             //for each instance file, select an image api instance to store a redudnatn copy (at random)
             foreach (var message in files)
             {
-                StoreCopy(message.ImagePath);
-                //sleep for an interval of time (env) 5 seconds for dev, 30 prod
-                int sleepInterval = GetSleepInterval();
-                Thread.Sleep(TimeSpan.FromSeconds(sleepInterval));
+                var containerId = message.MessageContainerLocations.First().ContainerLocationId;
+                var baseUri = $"http://image-api-{containerId}:4003/api/Image/getimage/{message.ImagePath}";
+                using var httpClient = new HttpClient();
+                try
+                {
+                    var image = await httpClient.GetFromJsonAsync<string>(baseUri);
+                    var imageBytes = Convert.FromBase64String(image);
+                    var response = await StoreCopy(imageBytes, containerId);
+                    //update containers list
+                    if(int.TryParse(response.Container,out int cId))
+                    { }
+                    var newContainerLocation = new MessageContainerLocation
+                    {
+                        ContainerLocationId = cId,
+                    };
+                    message.MessageContainerLocations.Add(newContainerLocation);
+                }
+                catch(Exception ex) { }
             }
+            //sleep for an interval of time (env) 5 seconds for dev, 30 prod
+            Thread.Sleep(TimeSpan.FromSeconds(sleepInterval));
         }
     }
 
@@ -31,9 +51,43 @@ class Program
         return sleepIntervalSeconds;
     }
 
-    static void StoreCopy(string path)
+    static async Task<Container_path> StoreCopy(byte[] image, int? containerId)
     {
+        using var httpClient = new HttpClient();
+        if (containerId.HasValue)
+        {
+            try
+            {
+                //randomly choose an api to send too.
+                Random random = new Random();
+                var apiChoice = random.Next(1, 3);
+                var apiUrl = "";
+                switch (containerId)
+                {
+                    case 1:
+                        apiUrl = (apiChoice == 1) ? "http://image-api-2:4003" : "http://image-api-3:4003";
+                        break;
+                    case 2:
+                        apiUrl = (apiChoice == 1) ? "http://image-api-3:4003" : "http://image-api-1:4003";
+                        break;
+                    case 3:
+                        apiUrl = (apiChoice == 1) ? "http://image-api-2:4003" : "http://image-api-1:4003";
+                        break;
 
+                }
+                // save image to container volume.
+                httpClient.BaseAddress = new Uri(apiUrl);
+                var volumePath = "/app/Images/SaveCompressedImage";
+                var response = await httpClient.PostAsJsonAsync(volumePath, image);
+                var containerPath = await response.Content.ReadFromJsonAsync<Container_path>();
+                return containerPath;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        return null;
     }
-    
+
 }

@@ -4,6 +4,7 @@
     "\\web",
     "\\web\\ChatAppAPI",
     "\\web\\ChatAppAPI\\Controllers",
+    "\\web\\ChatAppWeb",
     "\\web\\ImageMircoServiceAPI",
     "\\web\\ImageMircoServiceAPI\\Controllers"
   ],
