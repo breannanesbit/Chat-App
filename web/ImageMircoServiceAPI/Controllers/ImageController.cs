@@ -136,4 +136,39 @@ public class ImageController : ControllerBase
         return containerAndPath;
     }
 
+
+
+    [HttpPost("SaveCompressedImage")]
+    public async Task<Container_path> SaveCompressedImage(byte[] compressedImage)
+    {
+        _logger.LogInformation("save compressed image");
+
+        // Save the byte array to a file
+        var volumePath = "/app/Images";
+        var filePath = Path.Combine(volumePath, "uploaded_image.txt");
+        Directory.CreateDirectory(volumePath);
+        await System.IO.File.WriteAllBytesAsync(filePath, compressedImage);
+        _logger.LogInformation($"{filePath}");
+
+        var container = Environment.GetEnvironmentVariable("OTHER_CONTAINER");
+        string current_container;
+
+        if (container.Contains("1"))
+        {
+            current_container = "2";
+        }
+        else
+        {
+            current_container = "1";
+        }
+
+        var containerAndPath = new Container_path()
+        {
+            Container = container,
+            FilePath = filePath,
+        };
+
+        return containerAndPath;
+    }
+
 }
