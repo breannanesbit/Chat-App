@@ -6,7 +6,6 @@ using OpenTelemetry.Trace;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Sinks.Loki;
-using Shared;
 using Shared.Data;
 using System.Reflection;
 
@@ -34,6 +33,11 @@ internal class Program
         builder.Services.AddHttpClient("ImageApi2", client =>
         {
             client.BaseAddress = new Uri("http://image-api-2:4003");
+        });
+
+        builder.Services.AddHttpClient("ImageApi3", client =>
+        {
+            client.BaseAddress = new Uri("http://image-api-3:4003");
         });
 
         builder.Services.AddHttpClient("apiImage", client =>
