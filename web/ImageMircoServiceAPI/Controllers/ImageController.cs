@@ -1,5 +1,6 @@
 ﻿using ImageMagick;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.Data;
 using StackExchange.Redis;
@@ -52,11 +53,13 @@ public class ImageController : ControllerBase
         }
         else
         {
-            var imageInDatabase = context.Messages.Where((m) => m.ImagePath == path).FirstOrDefault();
+            var imageInDatabase = context.Messages.Include(m => m.MessageContainerLocations)
+                                                .Where(m => m.ImagePath == path)
+                                                .FirstOrDefault();
             if (imageInDatabase != null)
             {
                 var containerId = imageInDatabase.MessageContainerLocations.FirstOrDefault();
-                switch (containerId.ContainerLocationId)
+                switch (containerId?.ContainerLocationId)
                 {
                     case 1:
                         var imageClient = imageClientFactory.CreateClient("ImageApi1");
@@ -117,15 +120,6 @@ public class ImageController : ControllerBase
         _logger.LogInformation($"{filePath}");
 
 
-
-        if (container.Contains("1"))
-        {
-            current_container = "2";
-        }
-        else
-        {
-            current_container = "1";
-        }
 
         var containerAndPath = new Container_path()
         {

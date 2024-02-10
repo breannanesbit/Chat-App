@@ -42,6 +42,7 @@ class Program
                             ContainerLocationId = cId,
                         };
                         message.MessageContainerLocations.Add(newContainerLocation);
+                        await dbContext.SaveChangesAsync();
                     }
                     catch (Exception ex) { }
                 }

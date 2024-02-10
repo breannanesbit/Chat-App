@@ -107,6 +107,9 @@ namespace ChatAppAPI.Controllers
                 _context.Messages.Add(message);
                 await _context.SaveChangesAsync();
 
+                var messageId = GetAMessage(message);
+                await NewMessageContainerLocation(parsedContainerId, messageId);
+
                 _logger.LogInformation("Adding a message with image in the API at {time}", DateTime.Now);
                 Metrics.SuccessCalls.Add(1);
                 return Ok(message);
@@ -119,6 +122,23 @@ namespace ChatAppAPI.Controllers
                 Metrics.ApiCalls.Add(1);
                 return StatusCode(500, $"{ex.Message}");
             }
+        }
+
+        private async Task NewMessageContainerLocation(int parsedContainerId, Task<Message> messageId)
+        {
+            var messageContainerLocation = new MessageContainerLocation
+            {
+                MessageId = messageId.Id,
+                ContainerLocationId = parsedContainerId
+            };
+
+            _context.MessageContainerLocations.Add(messageContainerLocation);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Message> GetAMessage(Message message)
+        {
+            return await _context.Messages.Where((m) => m.MessageText == message.MessageText && m.Timestamp == message.Timestamp).FirstOrDefaultAsync();
         }
     }
 }

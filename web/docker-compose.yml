@@ -61,7 +61,7 @@ services:
     environment:
       - IMAGE_COMPRESSION_ENABLED=true
       - TIME_INTERVAL=1000
-      - OTHER_CONTAINER=image-api-2
+      - OTHER_CONTAINER=1
     ports: 
         - 4003:4003
     volumes:
@@ -78,7 +78,7 @@ services:
     environment:
       - IMAGE_COMPRESSION_ENABLED=true
       - TIME_INTERVAL=1000
-      - OTHER_CONTAINER=image-api-1
+      - OTHER_CONTAINER=2
     ports: 
         - 4006:4003
     volumes:
@@ -94,7 +94,7 @@ services:
     environment:
       - IMAGE_COMPRESSION_ENABLED=true
       - TIME_INTERVAL=1000
-      - OTHER_CONTAINER=image-api-1
+      - OTHER_CONTAINER=3
     ports: 
         - 4007:4003
     volumes:
