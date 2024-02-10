@@ -36,17 +36,27 @@ namespace ChatAppAPI.Controllers
                     foreach (var m in response)
                     {
                         string image = "";
-                        //fix here
-                        if (m.MessageContainerLocations.Count == 1)
+                        if (m.ImagePath != null)
                         {
-                            var imageClient = imageClientFactory.CreateClient("ImageApi1");
-                            image = await imageClient.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
+                            switch (m.MessageContainerLocations.FirstOrDefault().ContainerLocationId)
+                            {
+                                case 1:
+                                    var imageClient = imageClientFactory.CreateClient("ImageApi1");
+                                    image = await imageClient.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
+                                    break;
+                                case 2:
+                                    var imageClient2 = imageClientFactory.CreateClient("ImageApi2");
+                                    image = await imageClient2.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
+                                    break;
+                                case 3:
+                                    var imageClient3 = imageClientFactory.CreateClient("ImageApi3");
+                                    image = await imageClient3.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
+                                    break;
+
+                            }
+
                         }
-                        else
-                        {
-                            var imageClient = imageClientFactory.CreateClient("ImageApi2");
-                            image = await imageClient.GetFromJsonAsync<string>($"api/Image/getimage/{m.ImagePath}");
-                        }
+
 
                         var dto = new MessageWithImageDto
                         {

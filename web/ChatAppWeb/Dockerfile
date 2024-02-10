@@ -19,6 +19,7 @@
 #COPY ChatAppWeb/nginx.conf /etc/nginx/nginx.conf
 
 
+# Build stage
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -43,6 +44,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "ChatAppWeb.dll"]
+
 
 # Stage 3: Final image
 #FROM nginx:alpine AS final
