@@ -16,33 +16,33 @@ class Program
     static async Task Main(string[] args)
     {
         //Metrics-----------------------------------------------
-            var tracerProvider = Sdk.CreateTracerProviderBuilder()
-               .AddSource("MyCompany.MyProduct.MyLibrary")
-               .AddConsoleExporter()
-               .Build();
-            using (var activity = MyActivitySource.StartActivity("SayHello")) 
+        var tracerProvider = Sdk.CreateTracerProviderBuilder()
+           .AddSource("MyCompany.MyProduct.MyLibrary")
+           .AddConsoleExporter()
+           .Build();
+        using (var activity = MyActivitySource.StartActivity("SayHello"))
+        {
+            activity?.SetTag("foo", 1);
+            activity?.SetTag("bar", "Hello, World!");
+            activity?.SetTag("baz", new int[] { 1, 2, 3 });
+            activity?.SetStatus(ActivityStatusCode.Ok);
+        }
+        //Logs
+        var loggerFactory = LoggerFactory.Create(builder =>
+        {
+            builder.AddOpenTelemetry(options =>
             {
-                activity?.SetTag("foo", 1);
-                activity?.SetTag("bar", "Hello, World!");
-                activity?.SetTag("baz",new int[] {1,2,3});
-                activity?.SetStatus(ActivityStatusCode.Ok);
-            }
-            //Logs
-            var loggerFactory = LoggerFactory.Create(builder =>
-            {
-                builder.AddOpenTelemetry(options =>
-                {
-                    options.AddConsoleExporter();
-                });
+                options.AddConsoleExporter();
             });
-            var logger = loggerFactory.CreateLogger<Program>();
-            //Meter
-            Meter myMeter = new("Console.Metrics", "1.0");
-            Counter<long> RequestCounter = myMeter.CreateCounter<long>("RequestCounter");
-            using var meterProvider = Sdk.CreateMeterProviderBuilder()
-                .AddMeter("Console.Metrics")
-                .AddConsoleExporter()
-                .Build();
+        });
+        var logger = loggerFactory.CreateLogger<Program>();
+        //Meter
+        Meter myMeter = new("Console.Metrics", "1.0");
+        Counter<long> RequestCounter = myMeter.CreateCounter<long>("RequestCounter");
+        using var meterProvider = Sdk.CreateMeterProviderBuilder()
+            .AddMeter("Console.Metrics")
+            .AddConsoleExporter()
+            .Build();
         //------------------------------------------------------
         IConfiguration configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -58,8 +58,10 @@ class Program
         {   //check the shared database for image files that are only stored on one server.
             logger.LogInformation("Console: checking database for single save images files.");
 
-            var files = dbContext.Messages.Where(message => dbContext.MessageContainerLocations
-                    .Count(location => location.MessageId == message.Id) == 1 && !string.IsNullOrEmpty(message.ImagePath)).ToList();
+            var files = dbContext.Messages
+                .Include(message => message.MessageContainerLocations)
+                .Where(message => message.MessageContainerLocations.Count == 1 && !string.IsNullOrEmpty(message.ImagePath))
+                .ToList();
 
             if (files != null)
             {
@@ -87,7 +89,7 @@ class Program
                         {
                             ContainerLocationId = cId,
                         };
-                        message.MessageContainerLocations.Add(newContainerLocation);
+                        dbContext.MessageContainerLocations.Add(newContainerLocation);
                         await dbContext.SaveChangesAsync();
                         logger.LogInformation("Console: Added new Container Location");
 
