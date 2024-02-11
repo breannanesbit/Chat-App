@@ -124,6 +124,7 @@ namespace ChatAppAPI.Controllers
             }
         }
 
+        [HttpPost("postANewMessageContainerLocation")]
         private async Task NewMessageContainerLocation(int parsedContainerId, Task<Message> messageId)
         {
             var messageContainerLocation = new MessageContainerLocation
@@ -136,6 +137,7 @@ namespace ChatAppAPI.Controllers
             await _context.SaveChangesAsync();
         }
 
+        [HttpGet("AMessage")]
         public async Task<Message> GetAMessage(Message message)
         {
             return await _context.Messages.Where((m) => m.MessageText == message.MessageText && m.Timestamp == message.Timestamp).FirstOrDefaultAsync();
