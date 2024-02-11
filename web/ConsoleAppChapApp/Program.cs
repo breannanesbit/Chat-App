@@ -56,7 +56,7 @@ class Program
 
         while (true)
         {   //check the shared database for image files that are only stored on one server.
-            logger.LogInformation("Console checking database for single save images files.");
+            logger.LogInformation("Console: checking database for single save images files.");
 
             var files = dbContext.Messages.Where(message => dbContext.MessageContainerLocations
                     .Count(location => location.MessageId == message.Id) == 1 && !string.IsNullOrEmpty(message.ImagePath)).ToList();
@@ -65,6 +65,7 @@ class Program
             {
                 foreach (var message in files)
                 {
+                    logger.LogInformation("Console: Found an image with only one container save.");
                     var containerId = message.MessageContainerLocations.First().ContainerLocationId;
                     var baseUri = $"http://image-api-{containerId}:4003/api/Image/getimage/{message.ImagePath}";
 
