@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry;
 using OpenTelemetry.Logs;
@@ -16,33 +17,48 @@ class Program
     static async Task Main(string[] args)
     {
         //Metrics-----------------------------------------------
-        var tracerProvider = Sdk.CreateTracerProviderBuilder()
-           .AddSource("MyCompany.MyProduct.MyLibrary")
-           .AddConsoleExporter()
-           .Build();
-        using (var activity = MyActivitySource.StartActivity("SayHello"))
-        {
-            activity?.SetTag("foo", 1);
-            activity?.SetTag("bar", "Hello, World!");
-            activity?.SetTag("baz", new int[] { 1, 2, 3 });
-            activity?.SetStatus(ActivityStatusCode.Ok);
-        }
-        //Logs
-        var loggerFactory = LoggerFactory.Create(builder =>
-        {
-            builder.AddOpenTelemetry(options =>
+        /*await Host.CreateDefaultBuilder(args)
+            .ConfigureLogging((hostContext, loggingBuilder) =>
             {
-                options.AddConsoleExporter();
+                loggingBuilder.AddOpenTelemetry(options =>
+                {
+                    options.AddConsoleExporter();
+                });
+            });*/
+            
+            var tracerProvider = Sdk.CreateTracerProviderBuilder()
+               .AddSource("MyCompany.MyProduct.MyLibrary")
+               .AddConsoleExporter()
+               .Build();
+            using (var activity = MyActivitySource.StartActivity("SayHello")) 
+            {
+                activity?.SetTag("foo", 1);
+                activity?.SetTag("bar", "Hello, World!");
+                activity?.SetTag("baz",new int[] {1,2,3});
+                activity?.SetStatus(ActivityStatusCode.Ok);
+            }
+        //Logs
+            var loggerFactory = LoggerFactory.Create(builder =>
+            {
+                builder.AddOpenTelemetry(options =>
+                {
+                    options.AddConsoleExporter();
+                });
             });
-        });
-        var logger = loggerFactory.CreateLogger<Program>();
-        //Meter
-        Meter myMeter = new("Console.Metrics", "1.0");
-        Counter<long> RequestCounter = myMeter.CreateCounter<long>("RequestCounter");
-        using var meterProvider = Sdk.CreateMeterProviderBuilder()
-            .AddMeter("Console.Metrics")
-            .AddConsoleExporter()
-            .Build();
+            var logger = loggerFactory.CreateLogger<Program>();
+            //Meter
+            Meter myMeter = new("Console.Metrics", "1.0");
+            Counter<long> RanCounter = myMeter.CreateCounter<long>("TimeRan");
+            Counter<long> RequestCounter = myMeter.CreateCounter<long>("RequestCounter");
+            using var meterProvider = Sdk.CreateMeterProviderBuilder()
+                .AddMeter("Console.Metrics")
+                .AddOtlpExporter(opt =>
+                {
+                    opt.Endpoint = new Uri("http://localhost:9090");
+                    opt.Protocol = OpenTelemetry.Exporter.OtlpExportProtocol.HttpProtobuf;
+                })
+                .AddConsoleExporter()
+                .Build();
         //------------------------------------------------------
         IConfiguration configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -62,6 +78,8 @@ class Program
                 .Include(message => message.MessageContainerLocations)
                 .Where(message => message.MessageContainerLocations.Count == 1 && !string.IsNullOrEmpty(message.ImagePath))
                 .ToList();
+            RanCounter.Add(1, new KeyValuePair<string, object?>("Console:","Searching for single saved images."));
+            
 
             if (files != null)
             {
