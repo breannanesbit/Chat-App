@@ -73,9 +73,13 @@ class Program
         while (true)
         {   //check the shared database for image files that are only stored on one server.
             logger.LogInformation("Console: checking database for single save images files.");
+
+            var files = dbContext.Messages
+                .Include(message => message.MessageContainerLocations)
+                .Where(message => message.MessageContainerLocations.Count == 1 && !string.IsNullOrEmpty(message.ImagePath))
+                .ToList();
             RanCounter.Add(1, new KeyValuePair<string, object?>("Console:","Searching for single saved images."));
-            var files = dbContext.Messages.Where(message => dbContext.MessageContainerLocations
-                    .Count(location => location.MessageId == message.Id) == 1 && !string.IsNullOrEmpty(message.ImagePath)).ToList();
+            
 
             if (files != null)
             {
@@ -103,7 +107,7 @@ class Program
                         {
                             ContainerLocationId = cId,
                         };
-                        message.MessageContainerLocations.Add(newContainerLocation);
+                        dbContext.MessageContainerLocations.Add(newContainerLocation);
                         await dbContext.SaveChangesAsync();
                         logger.LogInformation("Console: Added new Container Location");
 

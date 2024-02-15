@@ -2,6 +2,7 @@
 @using ChatAppWeb.Services
 @using ChatAppWeb.classes
 @using System.IO;
+@using Microsoft.AspNetCore.SignalR.Client
 @using Shared
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components
@@ -68,7 +69,12 @@
 
 </div>
 
+@* Still need to implement the timer to call the send function if less than a second has gone by
+   Still need the bubble
+*@
+
 @code {
+    private HubConnection? hubConnection;
     private Message NewMessage = new Message { Sender = "", MessageText = "", ImagePath = "" };
     private List<Message> ChatBoxMessages = new List<Message>();
     private ChatBox chatBox;
@@ -81,6 +87,40 @@
 
         // Load initial messages
         await LoadMessages();
+
+        hubConnection = new HubConnectionBuilder()
+        .WithUrl("http://client.bre-aub-chatapp.duckdns.org/chathub")
+        .Build();
+
+
+        hubConnection.On<string>("ReceiveMessage", (user) =>
+        {
+            var encodedMsg = $"{user}";
+            //add bubble
+            //messages.Add(encodedMsg);
+            InvokeAsync(StateHasChanged);
+        });
+
+        await hubConnection.StartAsync();
+    }
+
+    private async Task Send()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.SendAsync("SendMessage", NewMessage.Sender);
+        }
+    }
+
+    public bool IsConnected =>
+    hubConnection?.State == HubConnectionState.Connected;
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await hubConnection.DisposeAsync();
+        }
     }
 
     private async Task LoadMessages()

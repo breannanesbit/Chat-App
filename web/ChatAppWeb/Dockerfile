@@ -40,10 +40,10 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./ChatAppWeb.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ChatAppWeb.dll"]
+FROM nginx:alpine
+WORKDIR /user/share/nginx/html
+COPY --from=publish /app/publish/wwwroot .
+COPY ChatAppWeb/nginx.conf /etc/nginx/nginx.conf
 
 
 # Stage 3: Final image
