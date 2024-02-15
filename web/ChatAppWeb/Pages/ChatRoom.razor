@@ -16,9 +16,9 @@
         <h3 class="m-0">Chat Room</h3>
     </div>
     <div class="h-100 border m-0 p-2 rounded-3 text-center row flex-grow-1 overflow-auto">
-        @if (ChatBoxMessages != null)
-        {
-            <div class="h-100 flex-column d-flex justify-content-start">
+        <div class="h-100 flex-column d-flex justify-content-start">
+            @if (ChatBoxMessages != null)
+            {
                 @foreach (var message in ChatBoxMessages)
                 {
                     <div class="border border-dark rounded-3 p-2 mb-2 row bg-light">
@@ -27,8 +27,18 @@
                         <p class="d-flex justify-content-end m-0">@message.Timestamp</p>
                     </div>
                 }
+            }
+            
+            <div class="row">
+                <h5 class="text-start mx-2">@NewMessage.Sender</h5>
+                <div class="typing mt-0">
+                    <span class="circle scaling"></span>
+                    <span class="circle scaling"></span>
+                    <span class="circle scaling"></span>
+                </div>
             </div>
-        }
+
+        </div>
 
     </div>
     <div class="border rounded-3 m-0 p-2 text-center tow flex-grow-0 mb-5">
@@ -47,7 +57,7 @@
                         Message:
                     </label>
                     <div class="col-9 align-content-end">
-                        <input class="form-control m-0 p-1" @bind="NewMessage!.MessageText" placeholder="Hello!"/>
+                        <input class="form-control m-0 p-1" @bind="NewMessage!.MessageText" placeholder="Hello!" disabled="@(string.IsNullOrEmpty(NewMessage.Sender))"/>
                     </div>
                 </div>
                 <div class="form-group row m-0">
@@ -70,7 +80,6 @@
 </div>
 
 @* Still need to implement the timer to call the send function if less than a second has gone by
-   Still need the bubble
 *@
 
 @code {
