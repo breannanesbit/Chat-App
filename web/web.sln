@@ -30,7 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageMircoServiceAPI", "ImageMircoServiceAPI\ImageMircoServiceAPI.csproj", "{4E0DFEFB-3BB1-4641-9693-943C35EC9A47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppChapApp", "ConsoleAppChapApp\ConsoleAppChapApp.csproj", "{2201C7A7-7188-4221-8667-134ED6E9AF2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppChapApp", "ConsoleAppChapApp\ConsoleAppChapApp.csproj", "{2201C7A7-7188-4221-8667-134ED6E9AF2C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatAppSignalR", "ChatAppSignalR\ChatAppSignalR.csproj", "{A202E76B-BD76-4B57-85B5-0FA73F6BA5B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +68,10 @@ Global
 		{2201C7A7-7188-4221-8667-134ED6E9AF2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2201C7A7-7188-4221-8667-134ED6E9AF2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2201C7A7-7188-4221-8667-134ED6E9AF2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A202E76B-BD76-4B57-85B5-0FA73F6BA5B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A202E76B-BD76-4B57-85B5-0FA73F6BA5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A202E76B-BD76-4B57-85B5-0FA73F6BA5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A202E76B-BD76-4B57-85B5-0FA73F6BA5B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
