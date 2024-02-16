@@ -47,11 +47,11 @@
         <form class="p-0 m-0 row" @formname="message-form"  onsubmit="return false">
             <div class="col-10">
                 <div class="form-group row">
-                    <lavel class="col-3 text-end">
+                    <label class="col-3 text-end">
                         Name:
-                    </lavel>
+                    </label>
                     <div class="col-9">
-                        <input class="form-control m-0 p-1" @bind="NewMessage!.Sender" placeholder="Tom Riddle"/>
+                        <input class="form-control m-0 p-1" @oninput="HandleTyping" @bind="NewMessage!.Sender" placeholder="Tom Riddle" />
                     </div>
                 </div>
                 <div class="form-group row mt-1">
@@ -93,6 +93,8 @@
     private bool TypingMessage = false;
     private CancellationTokenSource typingCancellationToken;
     private MessageWithImageDto messageDto = new MessageWithImageDto { message = null, Image = "" };
+    private Timer typingTimer;
+
     protected override async Task OnInitializedAsync()
     {
         // Initialize the ChatBox class by injecting the MessageService
@@ -101,12 +103,15 @@
         // Load initial messages
         await LoadMessages();
 
+        typingTimer = new Timer(CheckTypingStatus, null, Timeout.Infinite, Timeout.Infinite);
+
+
         hubConnection = new HubConnectionBuilder()
         .WithUrl("http://client.bre-aub-chatapp.duckdns.org/chathub")
         .Build();
 
 
-        hubConnection.On<string>("ReceiveMessage", (sender) =>
+        hubConnection.On<string>("ReceiveTyping", (sender) =>
         {
             if(sender != NewMessage.Sender)
             {
@@ -120,28 +125,43 @@
 
         await hubConnection.StartAsync();
     }
-    private async void ShowTypingIndicator()
+
+    private async Task ShowTypingIndicator()
     {
         TypingMessage = true;
         InvokeAsync(StateHasChanged);
 
-        await Task.Delay(1000);
+        typingTimer.Change(1000, Timeout.Infinite);
 
         TypingMessage = false;
         InvokeAsync(StateHasChanged);
     }
-    private async Task Send()
+
+    private async void CheckTypingStatus(object state)
     {
-        if (hubConnection is not null)
-        {
-            await hubConnection.SendAsync("SendMessage", NewMessage.Sender);
-        }
+        TypingMessage = false;
+        InvokeAsync(StateHasChanged);
+
+        await Task.CompletedTask;
     }
+
+    // private async Task Send()
+    // {
+    //     typingTimer.Change(Timeout.Infinite, Timeout.Infinite);
+
+    //     if (hubConnection is not null)
+    //     {
+    //         await hubConnection.SendAsync("SendMessage", NewMessage.Sender);
+    //     }
+    // }
 
     private async Task HandleTyping()
     {
-        if (!string.IsNullOrEmpty(NewMessage.Sender))
-        {
+        typingTimer.Change(Timeout.Infinite, Timeout.Infinite);
+
+
+        if (hubConnection is not null && !string.IsNullOrEmpty(NewMessage.Sender))
+    {
             await hubConnection.SendAsync("StartTyping", NewMessage.Sender);
             await ShowTypingIndicator();
         }
