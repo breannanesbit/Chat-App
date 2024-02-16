@@ -5,12 +5,13 @@
     "\\web\\ChatAppAPI",
     "\\web\\ChatAppAPI\\Controllers",
     "\\web\\ChatAppWeb",
+    "\\web\\ChatAppWeb\\Pages",
     "\\web\\ConsoleAppChapApp",
     "\\web\\ImageMircoServiceAPI",
     "\\web\\ImageMircoServiceAPI\\Controllers",
     "\\web\\Shared",
     "\\web\\Shared\\Data"
   ],
-  "SelectedNode": "\\web\\web.sln",
+  "SelectedNode": "\\web\\ChatAppWeb\\Pages\\ChatRoom.razor",
   "PreviewInSolutionExplorer": false
 }
