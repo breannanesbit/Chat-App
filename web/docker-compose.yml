@@ -30,6 +30,8 @@ services:
     ports:
       - 4001:4001
     mem_limit: 512M
+    networks:
+      - database_network
   
   console-app:
     build:
