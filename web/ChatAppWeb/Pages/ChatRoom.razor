@@ -125,6 +125,16 @@
             InvokeAsync(StateHasChanged);
         });
 
+        hubConnection.On<DateTime>("ReceiveMessageTimestamp", (timestamp) =>
+        {
+            if (timestamp != null)
+            {
+                GetMessagesWithTimestamp(timestamp);
+            }
+
+            InvokeAsync(StateHasChanged);
+        });
+
         await hubConnection.StartAsync();
     }
 
@@ -230,8 +240,22 @@
         // Use the ChatBox class to send a message
         await chatBox.SendMessageAsync(messageDto);
 
+
         // Reload messages after sending a new message
-        await LoadMessages();
+        //await LoadMessages();
         NewMessage = new Message { Sender = "", MessageText = "", ImagePath = "" };
+    }
+
+    private async Task SendingSignalWithNewMessage()
+    {
+        if (hubConnection is not null && NewMessage.Timestamp != null)
+        {
+            await hubConnection.SendAsync("NewMessage", NewMessage.Timestamp);
+        }
+    }
+
+    private async Task GetMessagesWithTimestamp(DateTime timestamp)
+    {
+        ChatBoxMessages = await chatBox.GetMessagesWithTimestampAsync(timestamp);
     }
 }

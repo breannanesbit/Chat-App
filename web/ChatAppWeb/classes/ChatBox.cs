@@ -23,6 +23,11 @@ public class ChatBox
         return await service.GetMessages();
     }
 
+    public async Task<List<Message>> GetMessagesWithTimestampAsync(DateTime time)
+    {
+        return await service.GetMessagesWithTimestamp(time);
+    }
+
     //public String Time { get; set; }
     //public String User { get; set; }
     //public String Message { get; set; }
