@@ -3,16 +3,18 @@
 #WORKDIR /src
 #
 #COPY ["ChatAppWeb/ChatAppWeb.csproj", "ChatAppWeb/"]
+#COPY ["Shared/Shared.csproj", "Shared/"]
+#
 #RUN dotnet restore "ChatAppWeb/ChatAppWeb.csproj"
 #
 #COPY . .
 #WORKDIR "/src/ChatAppWeb"
-#RUN dotnet build "ChatAppWeb.csproj" -c $BUILD_CONFIGURATION -o /app/build
+#RUN dotnet build "./ChatAppWeb.csproj" -c $BUILD_CONFIGURATION -o /app/build
 #
-## Stage 2: Publish the Blazor WebAssembly app
+### Stage 2: Publish the Blazor WebAssembly app
 #FROM build AS publish
-#RUN dotnet publish "ChatAppWeb.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-#
+#RUN dotnet publish "./ChatAppWeb.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+##
 #FROM nginx:alpine
 #WORKDIR /user/share/nginx/html
 #COPY --from=publish /app/publish/wwwroot .
@@ -23,28 +25,31 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
+ 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["ChatAppWeb/ChatAppWeb.csproj", "ChatAppWeb/"]
-COPY ["Shared/Shared.csproj", "Shared/"]
+RUN pwd
+RUN dotnet clean "./ChatAppWeb/./ChatAppWeb.csproj"
 RUN dotnet restore "./ChatAppWeb/./ChatAppWeb.csproj"
 COPY . .
 WORKDIR "/src/ChatAppWeb"
 RUN dotnet build "./ChatAppWeb.csproj" -c $BUILD_CONFIGURATION -o /app/build
-
+ 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./ChatAppWeb.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
-
+ 
 FROM nginx:alpine
 WORKDIR /user/share/nginx/html
 COPY --from=publish /app/publish/wwwroot .
 COPY ChatAppWeb/nginx.conf /etc/nginx/nginx.conf
-
+#FROM nginx:alpine
+#WORKDIR /user/share/nginx/html
+#COPY --from=publish /app/publish/wwwroot .
+#COPY ChatAppWeb/nginx.conf /etc/nginx/nginx.conf
+#
 
 # Stage 3: Final image
 #FROM nginx:alpine AS final

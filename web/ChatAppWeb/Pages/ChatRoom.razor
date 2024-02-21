@@ -28,10 +28,10 @@
                     </div>
                 }
             }
-            @if (!TypingMessage && NewMessage.Sender != null && NewMessage.Sender != "")
+            @if (TypingMessage && User != null && User != "")
             {
                 <div class="row">
-                    <h5 class="text-start mx-2">@NewMessage.Sender</h5>
+                    <h5 class="text-start mx-2">@User</h5>
                     <div class="typing mt-0">
                         <span class="circle scaling"></span>
                         <span class="circle scaling"></span>
@@ -85,6 +85,7 @@
 *@
 
 @code {
+    private string User;
     private HubConnection? hubConnection;
     private Message NewMessage = new Message { Sender = "", MessageText = "", ImagePath = "" };
     private List<Message> ChatBoxMessages = new List<Message>();
@@ -93,7 +94,7 @@
     private bool TypingMessage = false;
     private CancellationTokenSource typingCancellationToken;
     private MessageWithImageDto messageDto = new MessageWithImageDto { message = null, Image = "" };
-    private Timer typingTimer;
+    private System.Timers.Timer typingTimer;
 
     protected override async Task OnInitializedAsync()
     {
@@ -103,7 +104,7 @@
         // Load initial messages
         await LoadMessages();
 
-        typingTimer = new Timer(CheckTypingStatus, null, Timeout.Infinite, Timeout.Infinite);
+        typingTimer = new System.Timers.Timer();
 
 
         hubConnection = new HubConnectionBuilder()
@@ -115,11 +116,22 @@
         {
             if(sender != NewMessage.Sender)
             {
+                User = sender;
                 ShowTypingIndicator();
             }
             //var encodedMsg = $"{user}";
             //add bubble
             //messages.Add(encodedMsg);
+            InvokeAsync(StateHasChanged);
+        });
+
+        hubConnection.On<DateTime>("ReceiveMessageTimestamp", (timestamp) =>
+        {
+            if (timestamp != null)
+            {
+                GetMessagesWithTimestamp(timestamp);
+            }
+
             InvokeAsync(StateHasChanged);
         });
 
@@ -131,13 +143,9 @@
         TypingMessage = true;
         InvokeAsync(StateHasChanged);
 
-        typingTimer.Change(1000, Timeout.Infinite);
-
-        TypingMessage = false;
-        InvokeAsync(StateHasChanged);
     }
 
-    private async void CheckTypingStatus(object state)
+    private async Task CheckTypingStatus()
     {
         TypingMessage = false;
         InvokeAsync(StateHasChanged);
@@ -157,11 +165,13 @@
 
     private async Task HandleTyping()
     {
-        typingTimer.Change(Timeout.Infinite, Timeout.Infinite);
+        typingTimer.Interval = 1000;
+        typingTimer.Elapsed += (s_, e_) => CheckTypingStatus();
+        typingTimer.Enabled = true;
 
 
         if (hubConnection is not null && !string.IsNullOrEmpty(NewMessage.Sender))
-    {
+        {
             await hubConnection.SendAsync("StartTyping", NewMessage.Sender);
             await ShowTypingIndicator();
         }
@@ -230,8 +240,22 @@
         // Use the ChatBox class to send a message
         await chatBox.SendMessageAsync(messageDto);
 
+
         // Reload messages after sending a new message
-        await LoadMessages();
+        //await LoadMessages();
         NewMessage = new Message { Sender = "", MessageText = "", ImagePath = "" };
+    }
+
+    private async Task SendingSignalWithNewMessage()
+    {
+        if (hubConnection is not null && NewMessage.Timestamp != null)
+        {
+            await hubConnection.SendAsync("NewMessage", NewMessage.Timestamp);
+        }
+    }
+
+    private async Task GetMessagesWithTimestamp(DateTime timestamp)
+    {
+        ChatBoxMessages = await chatBox.GetMessagesWithTimestampAsync(timestamp);
     }
 }

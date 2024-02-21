@@ -36,5 +36,18 @@ namespace ChatAppWeb.Services
                 return [];
             }
         }
+
+        public async Task<List<Message>> GetMessagesWithTimestamp(DateTime timestamp)
+        {
+            var response = await client.GetFromJsonAsync<List<Message>>($"/api/Messages/GetMessageByTimestamp/{timestamp}");
+            if (response != null)
+            {
+                return response;
+            }
+            else
+            {
+                return [];
+            }
+        }
     }
 }

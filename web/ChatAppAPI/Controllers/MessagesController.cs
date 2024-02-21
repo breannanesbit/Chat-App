@@ -124,6 +124,13 @@ namespace ChatAppAPI.Controllers
             }
         }
 
+        [HttpGet("GetMessageByTimestamp/{timestap}")]
+        private async Task<List<Message>> MessagesByTimestamp(DateTime timestamp)
+        {
+            var messages = await _context.Messages.Where((m) => m.Timestamp >= timestamp).ToListAsync();
+            return messages;
+        }
+
         [HttpPost("postANewMessageContainerLocation")]
         private async Task NewMessageContainerLocation(int parsedContainerId, Task<Message> messageId)
         {
@@ -142,6 +149,8 @@ namespace ChatAppAPI.Controllers
         {
             return await _context.Messages.Where((m) => m.MessageText == message.MessageText && m.Timestamp == message.Timestamp).FirstOrDefaultAsync();
         }
+
+
     }
 }
 
