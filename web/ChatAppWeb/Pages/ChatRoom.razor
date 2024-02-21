@@ -239,7 +239,7 @@
 
         // Use the ChatBox class to send a message
         await chatBox.SendMessageAsync(messageDto);
-
+        await SendingSignalWithNewMessage();
 
         // Reload messages after sending a new message
         //await LoadMessages();
