@@ -9,6 +9,7 @@
 @using Microsoft.AspNetCore.Http
 @using Shared.Data
 @inject MessageService service;
+@inject LocalStorageAccessor localStorageAccessor;
 <PageTitle>Chat Room</PageTitle>
 
 <div class="vh-100 pb-5 d-flex flex-column overflow-hidden container-fluid">
@@ -85,6 +86,12 @@
 *@
 
 @code {
+     /*
+     * each client gets a unique guid
+     * inital vector clock dictionary on initial load(stored localy)
+     * each page load get the saved copy of uuid, lampor clock and the vector clock from local storage.
+     * when ever a message is sent it will need he uuid, lamport clock and vector clock too(optional data)
+    */
     private string User;
     private HubConnection? hubConnection;
     private Message NewMessage = new Message { Sender = "", MessageText = "", ImagePath = "" };
@@ -95,6 +102,13 @@
     private CancellationTokenSource typingCancellationToken;
     private MessageWithImageDto messageDto = new MessageWithImageDto { message = null, Image = "" };
     private System.Timers.Timer typingTimer;
+    private Guid ClientId/*  = Guid.NewGuid() */;
+    private int LamportCounter = 0;
+    private Dictionary<Guid, int> VectorClock = new Dictionary<Guid, int>();
+    private string Key { get; set; } = "";
+    private string Value { get; set; } = "";
+    private string StoredValue { get; set; } = "";
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -236,6 +250,7 @@
     {
         NewMessage.Timestamp = DateTime.Now;
         messageDto.message = NewMessage;
+        NewMessage.ClientId = ClientId;
 
         // Use the ChatBox class to send a message
         await chatBox.SendMessageAsync(messageDto);
@@ -258,4 +273,23 @@
     {
         ChatBoxMessages = await chatBox.GetMessagesWithTimestampAsync(timestamp);
     }
+
+    //****************Local Storage***********************/
+    public async Task SetValueAsync()
+    {
+        await localStorageAccessor.SetValueAsync(Key, Value);
+    }
+    public async Task GetValueAsync()
+    {
+        StoredValue = await localStorageAccessor.GetValueAsync<string>(Key);
+    }
+    public async Task RemoveAsync()
+    {
+        await localStorageAccessor.RemoveAsync(Key);
+    }
+    public async Task ClearAllAsync()
+    {
+        await localStorageAccessor.Clear();
+    }
+    //****************************************************/
 }

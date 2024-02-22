@@ -4,6 +4,8 @@
 
 CREATE TABLE IF NOT EXISTS "Messages" (
     "Id" SERIAL PRIMARY KEY,
+    "ClientId" UUID,
+    "LamportCounter" INT,
     "Sender" VARCHAR(255),
     "MessageText" TEXT,
     "ImagePath" VARCHAR(512),
