@@ -4,7 +4,7 @@
 
 CREATE TABLE IF NOT EXISTS "Messages" (
     "Id" SERIAL PRIMARY KEY,
-    "ClientId" UUID,
+    "ClientId" GUID,
     "LamportCounter" INT,
     "Sender" VARCHAR(255),
     "MessageText" TEXT,
@@ -24,6 +24,12 @@ CREATE TABLE IF NOT EXISTS "MessageContainerLocation" (
     "ContainerLocationId" INT,
     FOREIGN KEY("MessageId") REFERENCES "Messages"("Id") ON DELETE CASCADE,
     FOREIGN KEY("ContainerLocationId") REFERENCES "ContainerLocation"("Id") ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS "VectorClock" (
+    "Id" SERIAL PRIMARY KEY,
+    "ClientId" GUID,
+    "LamportCounter" INT,
 );
 
 INSERT INTO "Messages" ("Sender", "MessageText", "Timestamp") VALUES ('John', 'Hello, how are you?', DEFAULT);

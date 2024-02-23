@@ -102,6 +102,8 @@ namespace ChatAppAPI.Controllers
                     Sender = messageDto.message.Sender,
                     Timestamp = messageDto.message.Timestamp,
                     ImagePath = containerPath.FilePath,
+                    ClientId = messageDto.message.ClientId,
+                    LamportCounter = messageDto.message.LamportCounter,
                 };
 
                 _context.Messages.Add(message);

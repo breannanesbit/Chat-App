@@ -112,6 +112,23 @@
 
     protected override async Task OnInitializedAsync()
     {
+        ClientId = await localStorageAccessor.GetValueAsync<Guid>("CliendId");
+        if(ClientId == null)
+        {
+            ClientId = new Guid();
+            await localStorageAccessor.SetValueAsync("ClientId", ClientId);
+        }
+
+        VectorClock = await localStorageAccessor.GetValueAsync<Dictionary<Guid, int>>("VectorClock");
+        if (VectorClock == null)
+        {
+            VectorClock = new Dictionary<Guid, int>();
+            VectorClock[ClientId] = 0; 
+            await localStorageAccessor.SetValueAsync("VectorClock", VectorClock);
+        }
+
+        LamportCounter = VectorClock[ClientId];
+
         // Initialize the ChatBox class by injecting the MessageService
         chatBox = new ChatBox(service); // Replace with actual dependency injection
 
@@ -139,10 +156,11 @@
             InvokeAsync(StateHasChanged);
         });
 
-        hubConnection.On<DateTime>("ReceiveMessageTimestamp", (timestamp) =>
+        hubConnection.On<DateTime, Guid>("ReceiveMessageTimestamp", (timestamp, guid) =>
         {
             if (timestamp != null)
             {
+                CompareClocks(guid);
                 GetMessagesWithTimestamp(timestamp);
             }
 
@@ -150,6 +168,16 @@
         });
 
         await hubConnection.StartAsync();
+    }
+
+    private void CompareClocks(Guid grid)
+    {
+        var countLookUp = VectorClock[grid];
+        if (countLookUp > LamportCounter )
+        {
+            LamportCounter = countLookUp++;
+            VectorClock[ClientId] = LamportCounter;
+        }
     }
 
     private async Task ShowTypingIndicator()
@@ -248,9 +276,13 @@
 
     private async Task SendMessage()
     {
+        LamportCounter++;
         NewMessage.Timestamp = DateTime.Now;
         messageDto.message = NewMessage;
         NewMessage.ClientId = ClientId;
+        NewMessage.LamportCounter = LamportCounter;
+
+        VectorClock[ClientId] = LamportCounter;
 
         // Use the ChatBox class to send a message
         await chatBox.SendMessageAsync(messageDto);
@@ -261,17 +293,19 @@
         NewMessage = new Message { Sender = "", MessageText = "", ImagePath = "" };
     }
 
+
     private async Task SendingSignalWithNewMessage()
     {
         if (hubConnection is not null && NewMessage.Timestamp != null)
         {
-            await hubConnection.SendAsync("NewMessage", NewMessage.Timestamp);
+            await hubConnection.SendAsync("NewMessage", NewMessage.Timestamp, ClientId);
         }
     }
 
     private async Task GetMessagesWithTimestamp(DateTime timestamp)
     {
         ChatBoxMessages = await chatBox.GetMessagesWithTimestampAsync(timestamp);
+        ChatBoxMessages.OrderBy(c => c.LamportCounter).ThenBy(c => c.Timestamp);
     }
 
     //****************Local Storage***********************/

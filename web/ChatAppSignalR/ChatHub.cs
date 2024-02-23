@@ -9,8 +9,8 @@ public class ChatHub : Hub
         await Clients.All.SendAsync("ReceiveTyping", user);
     }
 
-    public async Task NewMessage(DateTime timestamp)
+    public async Task NewMessage(DateTime timestamp, Guid guid)
     {
-        await Clients.All.SendAsync("ReceiveMessageTimestamp", timestamp);
+        await Clients.All.SendAsync("ReceiveMessageTimestamp", timestamp, guid);
     }
 }
