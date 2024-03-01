@@ -10,7 +10,7 @@ public class LocalStorageAccessor : IAsyncDisposable
     {
         _jsRuntime = jsRuntime;
     }
-    
+
     public async Task WaitForReference()
     {
         if (_accessorJsRef.IsValueCreated is false)
@@ -25,13 +25,40 @@ public class LocalStorageAccessor : IAsyncDisposable
             await _accessorJsRef.Value.DisposeAsync();
         }
     }
-    
+
+    //public async Task<T> GetValueAsync<T>(string key)
+    //{
+    //    await WaitForReference();
+    //    var result = await _accessorJsRef.Value.InvokeAsync<T>("get", key);
+    //    return result;
+    //}
+
     public async Task<T> GetValueAsync<T>(string key)
     {
         await WaitForReference();
-        var result = await _accessorJsRef.Value.InvokeAsync<T>("get", key);
-        return result;
+        T result;
+        try
+        {
+            // Retrieve the value from local storage
+            result = await _accessorJsRef.Value.InvokeAsync<T>("get", key);
+            return result;
+
+        }
+        catch (Exception ex)
+        {
+            if (typeof(T) == typeof(Guid))
+            {
+                return (T)(object)Guid.Empty;
+            }
+            else
+                return default(T);
+
+        }
+
+        // Check if the value is null and handle accordingly
+
     }
+
 
     public async Task SetValueAsync<T>(string key, T value)
     {
@@ -39,8 +66,8 @@ public class LocalStorageAccessor : IAsyncDisposable
         await _accessorJsRef.Value.InvokeVoidAsync("set", key, value);
     }
 
-    public async Task Clear() 
-    { 
+    public async Task Clear()
+    {
         await WaitForReference();
         await _accessorJsRef.Value.InvokeVoidAsync("clear");
     }

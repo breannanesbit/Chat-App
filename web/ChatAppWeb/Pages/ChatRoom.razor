@@ -113,10 +113,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        ClientId = await localStorageAccessor.GetValueAsync<Guid>("CliendId");
-        if(ClientId == null)
+        ClientId = await localStorageAccessor.GetValueAsync<Guid>("ClientId");
+        if(ClientId == Guid.Empty)
         {
-            ClientId = new Guid();
+            ClientId = Guid.NewGuid();
             await localStorageAccessor.SetValueAsync("ClientId", ClientId);
         }
 
