@@ -12,6 +12,6 @@
     "\\web\\Shared",
     "\\web\\Shared\\Data"
   ],
-  "SelectedNode": "\\web\\web.sln",
+  "SelectedNode": "\\web\\ChatAppAPI\\Controllers\\MessagesController.cs",
   "PreviewInSolutionExplorer": false
 }

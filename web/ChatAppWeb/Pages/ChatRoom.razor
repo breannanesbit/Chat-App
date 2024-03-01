@@ -68,8 +68,9 @@
                         Image:
                     </label>
                     <div class="col-9 align-content-end">
-                        <InputFile class="form-control m-0 p-1" type="file" accept="image/*" @OnChange="HandleImageUpload" />
+                        <InputFile class="form-control m-0 p-1" type="file" accept="image/*" OnChange="@HandleImageUpload" />
                     </div>
+
                 </div>
             </div>
             <div class="col col-2">
@@ -102,7 +103,7 @@
     private CancellationTokenSource typingCancellationToken;
     private MessageWithImageDto messageDto = new MessageWithImageDto { message = null, Image = "" };
     private System.Timers.Timer typingTimer;
-    private Guid ClientId/*  = Guid.NewGuid() */;
+    private Guid ClientId/* = Guid.NewGuid() */;
     private int LamportCounter = 0;
     private Dictionary<Guid, int> VectorClock = new Dictionary<Guid, int>();
     private string Key { get; set; } = "";
