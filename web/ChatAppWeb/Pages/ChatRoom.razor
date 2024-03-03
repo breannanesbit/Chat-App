@@ -1,4 +1,4 @@
-﻿@page "/chatRoom"
+﻿@page "/"
 @using ChatAppWeb.Services
 @using ChatAppWeb.classes
 @using System.IO;
@@ -16,16 +16,22 @@
     <div class="m-0 p-2 text-center row flex-grow-0">
         <h3 class="m-0">Chat Room</h3>
     </div>
-    <div class="h-100 border m-0 p-2 rounded-3 text-center row flex-grow-1 overflow-auto">
+    <div class="h-100 border border-secondary bg-light m-0 p-2 rounded-3 text-center row flex-grow-1 overflow-auto">
         <div class="h-100 flex-column d-flex justify-content-start">
             @if (ChatBoxMessages != null)
             {
                 @foreach (var message in ChatBoxMessages)
                 {
-                    <div class="border border-dark rounded-3 p-2 mb-2 row bg-light">
-                        <h5 class="d-flex justify-content-start">@message.Sender</h5>
-                        <p class="m-0 text-start">@message.MessageText</p>
-                        <p class="d-flex justify-content-end m-0">@message.Timestamp</p>
+                    <div style="background-color: #e6f2ff" class="border border-dark rounded-3 p-2 mb-2 row @(message.ClientId == ClientId? "bg-secondary bg-gradient": "")">
+                        <h5 class="d-flex border-bottom justify-content-start @(message.ClientId == ClientId? "text-white":"text-dark" )">@message.Sender</h5>
+                        <div class="row">
+                            <p class="m-0 col text-start @(message.ClientId == ClientId? "text-white":"text-dark" )">@message.MessageText</p>
+                            @if(!string.IsNullOrEmpty(message.ImagePath))
+                            {
+                                <img src="@message.ImagePath" alt="Image" class="img-fluid col p-0 border border-secondary" style="height:100; max-width:150px"/>
+                            }
+                        </div>
+                        <p class="d-flex justify-content-end m-0 @(message.ClientId == ClientId? "text-white":"text-dark" )">@message.Timestamp</p>
                     </div>
                 }
             }
@@ -44,38 +50,38 @@
         </div>
 
     </div>
-    <div class="border rounded-3 m-0 p-2 text-center tow flex-grow-0 mb-5">
+    <div class="border border-secondary rounded-3 m-0 p-2 px-3 text-center tow flex-grow-0 mb-5" style="background:linear-gradient(#000080, #330033)">
         <form class="p-0 m-0 row" @formname="message-form"  onsubmit="return false">
-            <div class="col-10">
-                <div class="form-group row">
-                    <label class="col-3 text-end">
+            <div class="col col-12 col-md-9 col-lg-10 p-0">
+                <div class="form-group row px-4">
+                    <label class="col-12 col-md-3 col-sm-3 text-white col-form-label text-sm-end " >
                         Name:
                     </label>
-                    <div class="col-9">
-                        <input class="form-control m-0 p-1" @oninput="HandleTyping" @bind="NewMessage!.Sender" placeholder="Tom Riddle" />
+                    <div class="col-sm-9 col-md-9 col-lg-9  p-0">
+                        <input class="form-control p-1" @oninput="HandleTyping" @bind="NewMessage!.Sender" placeholder="Tom Riddle" />
                     </div>
                 </div>
-                <div class="form-group row mt-1">
-                    <label class="col-3 text-end">
+                <div class="form-group row mt-1 px-4">
+                    <label class="col-12 col-md-3 text-white col-sm-3 col-form-label text-sm-end">
                         Message:
                     </label>
-                    <div class="col-9 align-content-end">
-                        <input class="form-control m-0 p-1" @bind="NewMessage!.MessageText" placeholder="Hello!" disabled="@(string.IsNullOrEmpty(NewMessage.Sender))"/>
+                    <div class="col-sm-9 p-0">
+                        <input class="form-control  p-1" @bind="NewMessage!.MessageText" placeholder="Hello!" disabled="@(string.IsNullOrEmpty(NewMessage.Sender))"/>
                     </div>
                 </div>
-                <div class="form-group row m-0">
-                    <label class="col-3 text-end">
+                <div class="form-group row m-0 mx-2">
+                    <label class="col-12 col-md-3 text-white col-sm-3 col-form-label text-sm-end">
                         Image:
                     </label>
-                    <div class="col-9 align-content-end">
-                        <InputFile class="form-control m-0 p-1" type="file" accept="image/*" OnChange="@HandleImageUpload" />
+                    <div class="col-sm-9 justify-content-center px-0">
+                        <InputFile class="form-control  p-1" type="file" accept="image/*" OnChange="@HandleImageUpload" />
                     </div>
 
                 </div>
             </div>
-            <div class="col col-2">
-                <div class="form-group mt-3 row align-content-end">
-                    <button class="btn btn-primary" type="submit" @onclick="@(() => SendMessage())">Send</button>
+            <div class="col col-12 col-sm-12 col-md-3 mt-md-3 col-lg-2 d-flex justify-content-end align-items-end" >
+                <div class="form-group row"  >
+                    <button class="btn btn-primary mx-2" style="width:100px; background-color:" type="submit" @onclick="@(() => SendMessage())">Send</button>
                 </div>
             </div>
         </form>
@@ -87,18 +93,20 @@
 *@
 
 @code {
-     /*
-     * each client gets a unique guid
-     * inital vector clock dictionary on initial load(stored localy)
-     * each page load get the saved copy of uuid, lampor clock and the vector clock from local storage.
-     * when ever a message is sent it will need he uuid, lamport clock and vector clock too(optional data)
+        /*
+        * each client gets a unique guid
+        * inital vector clock dictionary on initial load(stored localy)
+        * each page load get the saved copy of uuid, lampor clock and the vector clock from local storage.
+        * when ever a message is sent it will need he uuid, lamport clock and vector clock too(optional data)
     */
+
+    //add some color fix the message input section to work with mobile.
     private string User;
     private HubConnection? hubConnection;
     private Message NewMessage = new Message { Sender = "", MessageText = "", ImagePath = "" };
     private List<Message> ChatBoxMessages = new List<Message>();
     private ChatBox chatBox;
-    private long MaxFileSize = 100*1024*1024;
+    private long MaxFileSize = 100 * 1024 * 1024;
     private bool TypingMessage = false;
     private CancellationTokenSource typingCancellationToken;
     private MessageWithImageDto messageDto = new MessageWithImageDto { message = null, Image = "" };
@@ -113,8 +121,9 @@
 
     protected override async Task OnInitializedAsync()
     {
+       
         ClientId = await localStorageAccessor.GetValueAsync<Guid>("ClientId");
-        if(ClientId == Guid.Empty)
+        if (ClientId == Guid.Empty)
         {
             ClientId = Guid.NewGuid();
             await localStorageAccessor.SetValueAsync("ClientId", ClientId);
@@ -124,7 +133,7 @@
         if (VectorClock == null)
         {
             VectorClock = new Dictionary<Guid, int>();
-            VectorClock[ClientId] = 0; 
+            VectorClock[ClientId] = 0;
             await localStorageAccessor.SetValueAsync("VectorClock", VectorClock);
         }
 
@@ -146,7 +155,7 @@
 
         hubConnection.On<string>("ReceiveTyping", (sender) =>
         {
-            if(sender != NewMessage.Sender)
+            if (sender != NewMessage.Sender)
             {
                 User = sender;
                 ShowTypingIndicator();
@@ -169,6 +178,9 @@
         });
 
         await hubConnection.StartAsync();
+
+            
+
     }
 
     private void CompareClocks(Guid grid)

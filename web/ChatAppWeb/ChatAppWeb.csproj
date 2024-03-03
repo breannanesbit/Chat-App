@@ -23,5 +23,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\css\Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\css\Images\Sample.png" />
+  </ItemGroup>
 
 </Project>

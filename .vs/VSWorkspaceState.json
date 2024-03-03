@@ -2,16 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\web",
-    "\\web\\ChatAppAPI",
-    "\\web\\ChatAppAPI\\Controllers",
     "\\web\\ChatAppWeb",
     "\\web\\ChatAppWeb\\Pages",
-    "\\web\\ConsoleAppChapApp",
-    "\\web\\ImageMircoServiceAPI",
-    "\\web\\ImageMircoServiceAPI\\Controllers",
-    "\\web\\Shared",
-    "\\web\\Shared\\Data"
+    "\\web\\ChatAppWeb\\wwwroot",
+    "\\web\\ChatAppWeb\\wwwroot\\css"
   ],
-  "SelectedNode": "\\web\\ChatAppAPI\\Controllers\\MessagesController.cs",
+  "SelectedNode": "\\web\\ChatAppWeb\\Pages\\ChatRoom.razor",
   "PreviewInSolutionExplorer": false
 }
